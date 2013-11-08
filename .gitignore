@@ -3,5 +3,5 @@
 /vendor/bundle
 *.yaml
 *.txt
-/work
-/tweets
+/tweet
+/tmp
