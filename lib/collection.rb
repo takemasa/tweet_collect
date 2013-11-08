@@ -25,12 +25,16 @@ class Authenticate
 
     def twconfig(twitter = Twitter::Client)
         twaccount = YAML.load_file('./config/twaccount.yaml')
-        client = twitter.new(
-            :consumer_key => twaccount["consumer_key#{@account_num}"],
-            :consumer_secret => twaccount["consumer_secret#{@account_num}"],
-            :oauth_token => twaccount["oauth_token#{@account_num}"],
-            :oauth_token_secret => twaccount["oauth_token_secret#{@account_num}"]
-            )
+        if twaccount["consumer_key#{@account_num}"]
+            client = twitter.new(
+                :consumer_key => twaccount["consumer_key#{@account_num}"],
+                :consumer_secret => twaccount["consumer_secret#{@account_num}"],
+                :oauth_token => twaccount["oauth_token#{@account_num}"],
+                :oauth_token_secret => twaccount["oauth_token_secret#{@account_num}"]
+                )
+        else
+            return 'account_num not exist'
+        end
     end
 end
 
