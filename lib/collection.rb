@@ -33,3 +33,15 @@ class Authenticate
             )
     end
 end
+
+
+class Writer
+
+    def initialize(keyword)
+        @keyword = keyword
+    end
+
+    def last_id
+        return 9999
+    end
+end

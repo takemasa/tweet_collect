@@ -43,6 +43,14 @@ describe Authenticate do
     end
   end
 end
+
+describe Writer do
+
+  describe 'last_id' do
+    it 'は最新のツイートのidを取得する' do
+      writer = Writer.new('test')
+      expect(writer.last_id).to eq(9999)
     end
   end
 end
+
