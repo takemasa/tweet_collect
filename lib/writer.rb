@@ -14,6 +14,12 @@ class Writer
     	end
     end
 
+    def make_dir
+    	FileUtils::mkdir_p("./tweet/test") unless FileTest.exist?("./tweet/test")
+    end
 
+    def last_id
+        return 9999
+    end
 
 end

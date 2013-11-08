@@ -21,6 +21,19 @@ describe Writer do
         end
     end
 
+    describe 'make_dir' do
+        it 'はkewordに対応したディレクトリを作成する' do
+            writer = Writer.new('test')
+            writer.make_dir
+            expect(FileTest.exist?("./tweet/test")).to eq(true)
+        end
+    end
 
+  describe 'last_id' do
+    it 'は最新のツイートのidを取得する' do
+      writer = Writer.new('test')
+      expect(writer.last_id).to eq(9999)
+    end
+  end
 
 end
