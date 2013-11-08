@@ -1,0 +1,52 @@
+consumer_key0: dummy_consumer_key
+consumer_secret0: dummy_consumer_secret
+oauth_token0: dummy_oauth_token
+oauth_token_secret0: dummy_oauth_token_secret
+username0: dummy
+
+consumer_key1:
+consumer_secret1:
+oauth_token1:
+oauth_token_secret1:
+username1:
+password1:
+
+consumer_key2:
+consumer_secret2:
+oauth_token2:
+oauth_token_secret2:
+username2:
+password2:
+
+consumer_key3:
+consumer_secret3:
+oauth_token3:
+oauth_token_secret3:
+username3:
+password3:
+
+consumer_key4:
+consumer_secret4:
+oauth_token4:
+oauth_token_secret4:
+username4:
+password4:
+
+consumer_key5:
+consumer_secret5:
+oauth_token5:
+oauth_token_secret5:
+username5:
+password5:
+
+consumer_key6:
+consumer_secret6:
+oauth_token6:
+oauth_token_secret6:
+username6:
+password6:
+
+
+aws_access_key:
+aws_secret_access_key:
+region:
