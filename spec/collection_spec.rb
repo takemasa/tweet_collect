@@ -30,7 +30,12 @@ describe Authenticate do
       expect{Authenticate.new}.to raise_error(ArgumentError)
     end
   end
+
   describe 'tw_config' do
+
+    it 'はaccount_numが不正な値のときエラー' do
+      expect(Authenticate.new('zero').twconfig(@account_num)).to eq('account_num not exist')
+    end
     it 'はtwitterへのOAuth認証を実行する' do
       m_oauth = double('OAuth')
       m_oauth.should_receive(:new).with(
