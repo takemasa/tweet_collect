@@ -9,7 +9,7 @@ class Authenticater
     attr_reader :tw_access_key
 
     def get_access_key(account_id)
-        tw_access_key = YAML.load_file('./config/twaccount.yaml')
+        tw_access_key = YAML.load_file('/Users/takemasa/Desktop/git_repository/tweet_collect/config/twaccount.yaml')
         if tw_access_key["consumer_key#{account_id}"]
             return ({
                 :consumer_key => tw_access_key["consumer_key#{account_id}"],
@@ -21,6 +21,7 @@ class Authenticater
             return 'account_id not exist'
         end
     end
+    private :get_access_key
 
     def get_client
             client = Twitter::Client.new(@tw_access_key)
