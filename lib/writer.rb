@@ -10,7 +10,7 @@ class Writer
     attr_reader :output_name
 
     def get_output_name
-        dir = YAML.load_file('/Users/takemasa/Desktop/git_repository/tweet_collect/config/twkeyword.yaml')
+        dir = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/twkeyword.yaml'))
         if @requested_output_name && @requested_output_name != dir[@keyword]
             raise 'yaml check'
         elsif dir[@keyword]
