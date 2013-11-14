@@ -22,10 +22,10 @@ describe Writer do
             expect(Writer.new('テスト').output_name).to eq('test')
         end
         it 'は与えられたoutput_nameがyamlファイルの記述と異なる場合にエラーメッセージを返す' do
-            expect{Writer.new('テスト','tets').output_name}.to raise_error('yaml check')
+            expect{Writer.new('テスト','tets').output_name}.to raise_error("twkeyword.yaml written \ntest\n")
         end
         it 'はyamlファイルにkeywordと対応したディレクトリ名がないとき、エラーメッセージを返す' do
-            expect{Writer.new('トテス').output_name}.to raise_error('yaml check')
+            expect{Writer.new('トテス').output_name}.to raise_error("twkeyword.yaml has no keyword \'トテス\'")
         end
     end
 

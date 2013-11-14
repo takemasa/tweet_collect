@@ -12,11 +12,11 @@ class Writer
     def get_output_name
         keyword_exchange = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/twkeyword.yaml'))
         if @requested_output_name && @requested_output_name != keyword_exchange[@keyword]
-            raise 'yaml check'
+            raise "twkeyword.yaml written \n#{keyword_exchange[@keyword]}\n"
         elsif keyword_exchange[@keyword]
             return keyword_exchange[@keyword]
         else
-            raise 'yaml check'
+            raise "twkeyword.yaml has no keyword \'#{@keyword}\'"
         end
     end
 
