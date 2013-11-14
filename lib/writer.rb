@@ -10,11 +10,11 @@ class Writer
     attr_reader :output_name
 
     def get_output_name
-        dir = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/twkeyword.yaml'))
-        if @requested_output_name && @requested_output_name != dir[@keyword]
+        keyword_exchange = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/twkeyword.yaml'))
+        if @requested_output_name && @requested_output_name != keyword_exchange[@keyword]
             raise 'yaml check'
-        elsif dir[@keyword]
-            return dir[@keyword]
+        elsif keyword_exchange[@keyword]
+            return keyword_exchange[@keyword]
         else
             raise 'yaml check'
         end
