@@ -1,15 +1,15 @@
 class Writer
 
-    def initialize(keyword, requested_dir_name = nil)
+    def initialize(keyword, requested_output_name = nil)
             @keyword = keyword
-            @requested_dir_name = requested_dir_name
-            @dir_name = get_dir_name
+            @requested_output_name = requested_output_name
+            @output_name = get_output_name
     end
-    attr_reader :dir_name
+    attr_reader :output_name
 
-    def get_dir_name
+    def get_output_name
         dir = YAML.load_file('/Users/takemasa/Desktop/git_repository/tweet_collect/config/twkeyword.yaml')
-        if @requested_dir_name && @requested_dir_name != dir[@keyword]
+        if @requested_output_name && @requested_output_name != dir[@keyword]
             raise 'yaml check'
         elsif dir[@keyword]
             return dir[@keyword]
@@ -21,25 +21,25 @@ class Writer
     def create_tweet_filename
         day = Time.now
         wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
-        return "#{@dir_name}/#{day.year}/#{day.month}/#{day.year}-#{day.month}-#{day.day}-#{wdays[day.wday]}_#{@dir_name}.ltsv"
+        return "#{@output_name}/#{day.year}/#{day.month}/#{day.year}-#{day.month}-#{day.day}-#{wdays[day.wday]}_#{@output_name}.ltsv"
     end
     private :create_tweet_filename
 
     def create_error_filename
         day = Time.now
         wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
-    	return "error/err_#{day.year}-#{day.month}-#{day.day}-#{wdays[day.wday]}_#{@dir_name}.txt"
+    	return "error/err_#{day.year}-#{day.month}-#{day.day}-#{wdays[day.wday]}_#{@output_name}.txt"
     end
     private :create_error_filename
 
     def create_id_filename
-    	return "id/#{@dir_name}.txt"
+    	return "id/#{@output_name}.txt"
     end
     private :create_id_filename
 
     def make_dir
         day = Time.now
-        FileUtils::mkdir_p("./tweet/#{@dir_name}/#{day.year}/#{day.month}") unless FileTest.exist?("./tweet/#{@dir_name}/#{day.year}/#{day.month}")
+        FileUtils::mkdir_p("./tweet/#{@output_name}/#{day.year}/#{day.month}") unless FileTest.exist?("./tweet/#{@output_name}/#{day.year}/#{day.month}")
         FileUtils::mkdir_p("./tweet/id") unless FileTest.exist?("./tweet/id}")
         FileUtils::mkdir_p("./tweet/error") unless FileTest.exist?("./tweet/error}")
     end

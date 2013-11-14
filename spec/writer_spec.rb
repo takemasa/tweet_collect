@@ -14,18 +14,18 @@ describe Writer do
         end
     end
 
-    describe 'get_dir_name' do
-        it 'はyamlファイルからkeywordに対応したディレクトリ名と引数dir_nameが一致したときdir_nameを返す' do
-            expect(Writer.new('テスト','test').dir_name).to eq('test')
+    describe 'get_output_name' do
+        it 'はyamlファイルからkeywordに対応したディレクトリ名と引数output_nameが一致したときoutput_nameを返す' do
+            expect(Writer.new('テスト','test').output_name).to eq('test')
         end
         it 'はyamlファイルからkeywordに対応したディレクトリ名を返す' do
-            expect(Writer.new('テスト').dir_name).to eq('test')
+            expect(Writer.new('テスト').output_name).to eq('test')
         end
-        it 'は与えられたdir_nameがyamlファイルの記述と異なる場合にエラーメッセージを返す' do
-            expect{Writer.new('テスト','tets').dir_name}.to raise_error('yaml check')
+        it 'は与えられたoutput_nameがyamlファイルの記述と異なる場合にエラーメッセージを返す' do
+            expect{Writer.new('テスト','tets').output_name}.to raise_error('yaml check')
         end
         it 'はyamlファイルにkeywordと対応したディレクトリ名がないとき、エラーメッセージを返す' do
-            expect{Writer.new('トテス').dir_name}.to raise_error('yaml check')
+            expect{Writer.new('トテス').output_name}.to raise_error('yaml check')
         end
     end
 
