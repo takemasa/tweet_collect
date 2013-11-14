@@ -14,22 +14,19 @@ describe Writer do
         end
     end
 
-    describe 'get_dir_name' do
-        it 'はyamlファイルからkeywordに対応したディレクトリ名と引数dir_nameが一致したときdir_nameを返す' do
-            expect(Writer.new('テスト','test').dir_name).to eq('test')
+    describe 'get_output_name' do
+        it 'はyamlファイルからkeywordに対応したディレクトリ名と引数output_nameが一致したときoutput_nameを返す' do
+            expect(Writer.new('テスト','test').output_name).to eq('test')
         end
         it 'はyamlファイルからkeywordに対応したディレクトリ名を返す' do
-            expect(Writer.new('テスト').dir_name).to eq('test')
+            expect(Writer.new('テスト').output_name).to eq('test')
         end
-        it 'は与えられたdir_nameがyamlファイルの記述と異なる場合にエラーメッセージを返す' do
-            expect{Writer.new('テスト','tets').dir_name}.to raise_error('yaml check')
+        it 'は与えられたoutput_nameがyamlファイルの記述と異なる場合にエラーメッセージを返す' do
+            expect{Writer.new('テスト','tets').output_name}.to raise_error('yaml check')
         end
         it 'はyamlファイルにkeywordと対応したディレクトリ名がないとき、エラーメッセージを返す' do
-            expect{Writer.new('トテス').dir_name}.to raise_error('yaml check')
+            expect{Writer.new('トテス').output_name}.to raise_error('yaml check')
         end
-        # it 'はyamlファイルにkeywordに対応したディレクトリ名がなく、dir_nameが存在するとき、dir_nameを返す' do
-        #     expect(Writer.new('トテス','ttes').dir_name).to eq('ttes')
-        # end
     end
 
     describe 'make_dir' do
@@ -48,23 +45,13 @@ describe Writer do
             Writer.new('テスト').make_dir
             expect(FileTest.exist?("./tweet/id")).to eq(true)
         end
-        # it 'はdir_nameに応じてディレクトリを作成' do
-        #     Writer.new('テトス','tets').make_dir
-        #     expect(FileTest.exist?("./tweet/tets")).to eq(true)
-        # end
     end
 
-    describe 'get_last_id' do
+    describe 'get_since_id' do
         it 'は最新のツイートのidを取得する' do
-            expect(Writer.new('テスト').get_last_id).to eq(0)
+            expect(Writer.new('テスト').get_since_id).to eq(0)
         end
     end
-
-    # describe 'create_tweet_sfilename' do
-    #     it 'はtweetを出力するファイル名を生成する' do
-    #         expect(Writer.new('テスト').get_filename).to eq('filename')
-    #     end
-    # end
 
     describe 'output_tweet' do
         it 'はツイートをファイルに出力する' do
