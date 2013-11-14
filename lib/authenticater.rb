@@ -9,7 +9,7 @@ class Authenticater
     attr_reader :tw_access_key
 
     def get_access_key(account_id)
-        tw_access_key = YAML.load_file('/Users/takemasa/Desktop/git_repository/tweet_collect/config/twaccount.yaml')
+        tw_access_key = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/twaccount.yaml'))
         if tw_access_key["consumer_key#{account_id}"]
             return ({
                 :consumer_key => tw_access_key["consumer_key#{account_id}"],
