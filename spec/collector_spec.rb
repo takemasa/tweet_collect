@@ -16,7 +16,7 @@ describe Collector do
             m_client.should_receive(:search).with('keyword', :count=>100, :result_type => "recent", :since_id => 0, :lang => "ja").and_return(m_search)
             m_search.should_receive(:results).and_return(['results'])
 
-            expect(Collector.new('keyword').search_tweet(m_client)).to eq('results')
+            expect(Collector.new('keyword').search_tweet(m_client)).to eq(['results'])
         end
     end
 end
