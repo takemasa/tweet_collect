@@ -27,9 +27,6 @@ describe Writer do
         it 'はyamlファイルにkeywordと対応したディレクトリ名がないとき、エラーメッセージを返す' do
             expect{Writer.new('トテス').dir_name}.to raise_error('yaml check')
         end
-        # it 'はyamlファイルにkeywordに対応したディレクトリ名がなく、dir_nameが存在するとき、dir_nameを返す' do
-        #     expect(Writer.new('トテス','ttes').dir_name).to eq('ttes')
-        # end
     end
 
     describe 'make_dir' do
@@ -48,10 +45,6 @@ describe Writer do
             Writer.new('テスト').make_dir
             expect(FileTest.exist?("./tweet/id")).to eq(true)
         end
-        # it 'はdir_nameに応じてディレクトリを作成' do
-        #     Writer.new('テトス','tets').make_dir
-        #     expect(FileTest.exist?("./tweet/tets")).to eq(true)
-        # end
     end
 
     describe 'get_last_id' do
@@ -59,12 +52,6 @@ describe Writer do
             expect(Writer.new('テスト').get_last_id).to eq(0)
         end
     end
-
-    # describe 'create_tweet_sfilename' do
-    #     it 'はtweetを出力するファイル名を生成する' do
-    #         expect(Writer.new('テスト').get_filename).to eq('filename')
-    #     end
-    # end
 
     describe 'output_tweet' do
         it 'はツイートをファイルに出力する' do
