@@ -47,9 +47,9 @@ describe Writer do
         end
     end
 
-    describe 'get_last_id' do
+    describe 'get_since_id' do
         it 'は最新のツイートのidを取得する' do
-            expect(Writer.new('テスト').get_last_id).to eq(0)
+            expect(Writer.new('テスト').get_since_id).to eq(0)
         end
     end
 

@@ -1,10 +1,10 @@
 class Writer
 
     def initialize(keyword, requested_output_name = nil)
-            @keyword = keyword
-            @requested_output_name = requested_output_name
-            @output_name = get_output_name
-    	@day = Time.now
+        @keyword = keyword
+        @requested_output_name = requested_output_name
+        @output_name = get_output_name
+        @day = Time.now
         @wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
     end
     attr_reader :output_name
@@ -26,12 +26,12 @@ class Writer
     private :create_tweet_filename
 
     def create_error_filename
-    	return "error/err_#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.txt"
+        return "error/err_#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.txt"
     end
     private :create_error_filename
 
     def create_id_filename
-    	return "id/#{@output_name}.txt"
+        return "id/#{@output_name}.txt"
     end
     private :create_id_filename
 
@@ -41,10 +41,10 @@ class Writer
         FileUtils::mkdir_p("./tweet/error") unless FileTest.exist?("./tweet/error}")
     end
 
-    def get_last_id
-    	id_filename = create_id_filename
+    def get_since_id
+        id_filename = create_id_filename
         File.open("./tweet/#{id_filename}",'a+') {|f|
-        		@since_id = f.readlines[-1].to_i
+                @since_id = f.readlines[-1].to_i
         }
         File.open("./tweet/#{id_filename}",'w')
         return @since_id
