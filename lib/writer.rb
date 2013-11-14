@@ -4,6 +4,8 @@ class Writer
             @keyword = keyword
             @requested_output_name = requested_output_name
             @output_name = get_output_name
+    	@day = Time.now
+        @wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
     end
     attr_reader :output_name
 
@@ -19,16 +21,12 @@ class Writer
     end
 
     def create_tweet_filename
-        day = Time.now
-        wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
-        return "#{@output_name}/#{day.year}/#{day.month}/#{day.year}-#{day.month}-#{day.day}-#{wdays[day.wday]}_#{@output_name}.ltsv"
+        return "#{@output_name}/#{@day.year}/#{@day.month}/#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
     end
     private :create_tweet_filename
 
     def create_error_filename
-        day = Time.now
-        wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
-    	return "error/err_#{day.year}-#{day.month}-#{day.day}-#{wdays[day.wday]}_#{@output_name}.txt"
+    	return "error/err_#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.txt"
     end
     private :create_error_filename
 
@@ -38,8 +36,7 @@ class Writer
     private :create_id_filename
 
     def make_dir
-        day = Time.now
-        FileUtils::mkdir_p("./tweet/#{@output_name}/#{day.year}/#{day.month}") unless FileTest.exist?("./tweet/#{@output_name}/#{day.year}/#{day.month}")
+        FileUtils::mkdir_p("./tweet/#{@output_name}/#{@day.year}/#{@day.month}") unless FileTest.exist?("./tweet/#{@output_name}/#{@day.year}/#{@day.month}")
         FileUtils::mkdir_p("./tweet/id") unless FileTest.exist?("./tweet/id}")
         FileUtils::mkdir_p("./tweet/error") unless FileTest.exist?("./tweet/error}")
     end
