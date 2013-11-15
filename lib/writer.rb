@@ -1,5 +1,6 @@
 class Writer
 
+    public
     def initialize(keyword, requested_output_name = nil)
         @keyword = keyword
         @requested_output_name = requested_output_name
@@ -19,21 +20,6 @@ class Writer
             raise "twkeyword.yaml has no keyword \'#{@keyword}\'"
         end
     end
-
-    def create_tweet_filename
-        return "#{@output_name}/#{@day.year}/#{@day.month}/#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
-    end
-    private :create_tweet_filename
-
-    def create_error_filename
-        return "error/err_#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.txt"
-    end
-    private :create_error_filename
-
-    def create_id_filename
-        return "id/#{@output_name}.txt"
-    end
-    private :create_id_filename
 
     def make_dir
         FileUtils::mkdir_p("./tweet/#{@output_name}/#{@day.year}/#{@day.month}") unless FileTest.exist?("./tweet/#{@output_name}/#{@day.year}/#{@day.month}")
@@ -70,4 +56,18 @@ class Writer
             tweet.puts @id_ary
         }
     end
+
+    private
+    def create_tweet_filename
+        return "#{@output_name}/#{@day.year}/#{@day.month}/#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
+    end
+
+    def create_error_filename
+        return "error/err_#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.txt"
+    end
+
+    def create_id_filename
+        return "id/#{@output_name}.txt"
+    end
+
 end
