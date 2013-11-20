@@ -27,15 +27,6 @@ class Writer
         FileUtils::mkdir_p("./tweet/error") unless FileTest.exist?("./tweet/error}")
     end
 
-    def get_since_id
-        id_filename = create_id_filename
-        File.open("./tweet/#{id_filename}",'a+') {|f|
-                @since_id = f.readlines[-1].to_i
-        }
-        File.open("./tweet/#{id_filename}",'w')
-        return @since_id
-    end
-
     def output_tweet
         tweet_filename = create_tweet_filename
         File.open("./tweet/#{tweet_filename}",'a+'){|tweet|
