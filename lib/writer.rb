@@ -15,7 +15,7 @@ class Writer
         if @requested_output_name && @requested_output_name != keyword_exchange[@keyword]
             raise "twkeyword.yaml written \n#{keyword_exchange[@keyword]}\n"
         elsif keyword_exchange[@keyword]
-            return keyword_exchange[@keyword]
+            keyword_exchange[@keyword]
         else
             raise "twkeyword.yaml has no keyword \'#{@keyword}\'"
         end
@@ -59,11 +59,11 @@ class Writer
 
     private
     def create_tweet_filename
-        return "#{@output_name}/#{@day.year}/#{@day.month}/#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
+        "#{@output_name}/#{@day.year}/#{@day.month}/#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
     end
 
     def create_error_filename
-        return "error/err_#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.txt"
+        "error/err_#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.txt"
     end
 
     def create_id_filename
