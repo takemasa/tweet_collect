@@ -10,7 +10,7 @@ describe Authenticater do
 
   describe 'get_access_key' do
     it 'はaccount_idが不正な値のときエラー' do
-      expect{Authenticater.new('zero').tw_access_key}.to raise_error
+      expect{Authenticater.new('zero').tw_access_key}.to raise_error 'account_id not exist'
     end
     it 'はyamlファイルからアカウント情報を取得' do
       expect(Authenticater.new(0).tw_access_key).to eq({
