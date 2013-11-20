@@ -57,6 +57,10 @@ class Writer
         }
     end
 
+    def create_id_filename
+        "id/#{@output_name}.txt"
+    end
+
     private
     def create_tweet_filename
         "#{@output_name}/#{@day.year}/#{@day.month}/#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
@@ -66,8 +70,5 @@ class Writer
         "error/err_#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.txt"
     end
 
-    def create_id_filename
-        return "id/#{@output_name}.txt"
-    end
 
 end
