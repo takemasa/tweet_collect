@@ -18,7 +18,7 @@ class Authenticater
                 :oauth_token_secret => tw_access_key["oauth_token_secret#{account_id}"]
                 })
         else
-            return 'account_id not exist'
+            raise 'account_id not exist'
         end
     end
     private :get_access_key
