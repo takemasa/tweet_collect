@@ -22,6 +22,10 @@ class Collector
         since_id ? since_id : 0
     end
 
+    def clear_idfile
+        File.open("./tweet/#{@id_filename}",'w')
+    end
+
     def search_tweet(client) # searchによって取得したTwitter::Tweetクラスのオブジェクトを100件返す
         @tweet = []
         client.search(@keyword, :count => @count, :result_type => @result_type, :since_id => @since_id, :lang => @lang).results.reverse.each do |tweet|
