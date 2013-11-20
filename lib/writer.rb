@@ -15,7 +15,7 @@ class Writer
         if @requested_output_name && @requested_output_name != keyword_exchange[@keyword]
             raise "twkeyword.yaml written \n#{keyword_exchange[@keyword]}\n"
         elsif keyword_exchange[@keyword]
-            return keyword_exchange[@keyword]
+            keyword_exchange[@keyword]
         else
             raise "twkeyword.yaml has no keyword \'#{@keyword}\'"
         end
@@ -25,15 +25,6 @@ class Writer
         FileUtils::mkdir_p("./tweet/#{@output_name}/#{@day.year}/#{@day.month}") unless FileTest.exist?("./tweet/#{@output_name}/#{@day.year}/#{@day.month}")
         FileUtils::mkdir_p("./tweet/id") unless FileTest.exist?("./tweet/id}")
         FileUtils::mkdir_p("./tweet/error") unless FileTest.exist?("./tweet/error}")
-    end
-
-    def get_since_id
-        id_filename = create_id_filename
-        File.open("./tweet/#{id_filename}",'a+') {|f|
-                @since_id = f.readlines[-1].to_i
-        }
-        File.open("./tweet/#{id_filename}",'w')
-        return @since_id
     end
 
     def output_tweet
@@ -57,17 +48,18 @@ class Writer
         }
     end
 
+    def create_id_filename
+        "id/#{@output_name}.txt"
+    end
+
     private
     def create_tweet_filename
-        return "#{@output_name}/#{@day.year}/#{@day.month}/#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
+        "#{@output_name}/#{@day.year}/#{@day.month}/#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
     end
 
     def create_error_filename
-        return "error/err_#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.txt"
+        "error/err_#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.txt"
     end
 
-    def create_id_filename
-        return "id/#{@output_name}.txt"
-    end
 
 end
