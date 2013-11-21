@@ -23,8 +23,9 @@ class Cleaner
     end
 
     def set_label(label, tweet_status)
-        "#{label}#{tweet_status}"
+        "#{label}:#{tweet_status}"
     end
+    private :set_label
 
     def create_tweet_ary (tweet, text, client, place)
 
