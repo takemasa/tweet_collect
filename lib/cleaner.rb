@@ -1,9 +1,10 @@
 class Cleaner
 
-    def initialize
+    def initialize(ary_type = 'all')
         @tweets_ary = []
         @error_ary = error_ary
         @id_ary = id_ary
+        @ary_type = ary_type
     end
     attr_accessor :tweets_ary
     attr_accessor :error_ary
