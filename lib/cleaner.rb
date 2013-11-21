@@ -1,17 +1,15 @@
 class Cleaner
 
     def initialize(ary_type = 'all')
-        @tweets_ary = []
         @error_ary = error_ary
         @id_ary = id_ary
         @ary_type = ary_type
     end
-    attr_accessor :tweets_ary
     attr_accessor :error_ary
     attr_accessor :id_ary
 
     def get_retweeted(retweeted_text)
-        @text = "RT #{retweeted_text}" if retweeted_text
+        "RT #{retweeted_text}" if retweeted_text
     end
 
     def modify_tweet_status_str(tweet_text)
@@ -19,7 +17,11 @@ class Cleaner
     end
 
     def modify_twitter_client_str(twitter_client)
-        @client = twitter_client.gsub(/<.*">/,"").gsub(/<\/a>/,"").gsub(/(\r\n|\r|\n|\t)/," ")
+        twitter_client.gsub(/<.*">/,"").gsub(/<\/a>/,"").gsub(/(\r\n|\r|\n|\t)/,"")
+    end
+
+    def modify_place_str(place = nil)
+        place ? place.gsub(",","\tplace_prefecture:") : "\tplace_prefecture:"
     end
 
     def set_label(label, tweet_status)
@@ -57,6 +59,7 @@ class Cleaner
     end
 
     def add_tweets_ary(joined_tweet)
-        @tweets_ary << joined_tweet
+        tweets_ary = []
+        tweets_ary << joined_tweet
     end
 end
