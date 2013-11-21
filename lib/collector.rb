@@ -1,12 +1,12 @@
 # require 'bundler/setup'
 # Bundler.require
-require 'writer.rb'
+require File.expand_path(File.dirname(__FILE__) + '/writer.rb')
 
 class Collector
 
     def initialize(keyword , lang = 'ja', result_type = "recent", count = 100)
         @keyword = keyword
-        @id_filename = Writer.new(keyword).create_id_filename
+        @id_filename = Writer.new(keyword).create_id_filename # requireしなくてもapp.rbで書けば呼べる
         @since_id = get_since_id
         @lang = lang
         @result_type = result_type
@@ -16,7 +16,7 @@ class Collector
 
     def get_since_id
         since_id = 0
-        File.open("./tweet/#{@id_filename}",'a+') {|f|
+        File.open(File.expand_path(File.dirname(__FILE__) + "/../tweet/#{@id_filename}"),'a+') {|f|
             since_id = f.readlines[-1].to_i
         }
         since_id ? since_id : 0
