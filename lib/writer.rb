@@ -27,7 +27,7 @@ class Writer
         FileUtils::mkdir_p("./tweet/error") unless FileTest.exist?("./tweet/error}")
     end
 
-    def output_tweet
+    def output_tweet(tweet)
         tweet_filename = create_tweet_filename
         File.open("./tweet/#{tweet_filename}",'a+'){|tweet|
             tweet.puts @tweets_ary
