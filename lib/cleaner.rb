@@ -1,9 +1,10 @@
 class Cleaner
 
-    def initialize
+    def initialize(ary_type = 'all')
         @tweets_ary = []
         @error_ary = error_ary
         @id_ary = id_ary
+        @ary_type = ary_type
     end
     attr_accessor :tweets_ary
     attr_accessor :error_ary
@@ -22,23 +23,33 @@ class Cleaner
     end
 
     def set_label(label, tweet_status)
-        "#{label}#{tweet_status}"
+        "#{label}:#{tweet_status}"
     end
+    private :set_label
 
-    def create_tweet_ary
-        @tweet_ary = [
-            tweet.created_at,
-            tweet.text,
-            tweet.id,
-            tweet.source,
-            tweet.place.full_name,
-            tweet.retweet_count,
-            tweet.user.friends_count,
-            tweet.user.followers_count,
-            tweet.user.screen_name,
-            tweet.user.id,
-            tweet.user.statuses_count
-        ]
+    def create_tweet_ary (tweet, text, client, place)
+
+        created_at = set_label('created_at', tweet.created_at)
+        user_name = set_label('user_name', tweet.user.screen_name)
+        user_id = set_label('user_id', tweet.user.id)
+        text = set_label('text', text)
+        tweet_id = set_label('tweet_id', tweet.id)
+        client = set_label('client', client)
+        retweet_count = set_label('retweet_count', tweet.retweet_count)
+        friends_count = set_label('friends_count', tweet.user.friends_count)
+        followers_count = set_label('followers_count', tweet.user.followers_count)
+        all_tweet_count = set_label('all_tweet_count', tweet.user.statuses_count)
+        place = set_label('place_city', place)
+
+        case @ary_type
+        when 'simple'
+            ary = [created_at, user_name, text]
+        when 'numeric'
+            ary = [created_at, use_id, tweet_id, retweet_count, friends_count, followers_count, all_tweet_count]
+        when 'all'
+            ary = [created_at, user_name, user_id, text, tweet_id, client, retweet_count, friends_count, followers_count, all_tweet_count, place]
+        end
+        ary
     end
 
     def join_tweet_status(tweet)

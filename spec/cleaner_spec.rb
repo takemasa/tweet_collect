@@ -22,18 +22,6 @@ describe Cleaner do
         end
     end
 
-    describe 'set_label' do
-        it 'はtweetの要素に、ラベルを付加して返す' do
-            expect(Cleaner.new.set_label("tweet_id:", "12345")).to eq("tweet_id:12345")
-        end
-    end
-
-    # describe 'create_tweet_ary' do
-    #     it 'は保存するtweetの要素だけの配列を生成する' do
-    #         expect(Cleaner.new.create_tweet_ary).to eq
-    #     end
-    # end
-
     describe 'join_tweet_status' do
         it 'はtweetの要素をタブ区切りでつなげて返す' do
             expect(Cleaner.new.join_tweet_status([

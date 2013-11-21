@@ -4,13 +4,12 @@ require File.expand_path(File.dirname(__FILE__) + '/writer.rb')
 
 class Collector
 
-    def initialize(keyword , lang = 'ja', result_type = "recent", count = 100)
+    def initialize(keyword, result_type = "recent", lang = 'ja')
         @keyword = keyword
         @id_filename = Writer.new(keyword).create_id_filename # requireしなくてもapp.rbで書けば呼べる
         @since_id = get_since_id
         @lang = lang
         @result_type = result_type
-        @count = count
     end
     attr_reader :since_id
 
@@ -27,12 +26,12 @@ class Collector
     end
 
     def search_tweet(client) # searchによって取得したTwitter::Tweetクラスのオブジェクトを100件返す
-        @tweet = []
-        client.search(@keyword, :count => @count, :result_type => @result_type, :since_id => @since_id, :lang => @lang).results.reverse.each do |tweet|
-            @tweet << tweet
+        tweets = []
+        client.search(@keyword, :count => 100, :result_type => @result_type, :since_id => @since_id, :lang => @lang).results.reverse.each do |tweet|
+            tweets << tweet
         end
+        tweets
         rescue Twitter::Error => e
             raise "error_time:#{Time.now}", "class:#{e.class}  message:#{e.message}"
     end
-     attr_accessor :tweet
 end
