@@ -29,8 +29,8 @@ class Writer
 
     def output_tweet(tweet)
         tweet_filename = create_tweet_filename
-        File.open("./tweet/#{tweet_filename}",'a+'){|tweet|
-            tweet.puts @tweets_ary
+        File.open("./tweet/#{tweet_filename}",'a+'){|file|
+            file.puts tweet
         }
     end
 
