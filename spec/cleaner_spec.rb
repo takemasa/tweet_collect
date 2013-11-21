@@ -26,18 +26,9 @@ describe Cleaner do
         it 'はtweetの要素をタブ区切りでつなげて返す' do
             expect(Cleaner.new.join_tweet_status([
                 "created_at:2013-11-13 08:02:56 +0900",
-                "text:Hello,world",
-                "tweet_id:12345",
-                "screen_name:screen_name",
-                "friends_count:0",
-                "followers_count:0",
-                "retweet_count:0",
-                "user.id:0",
-                "place:0",
-                "all_tweets_count:1",
-                "client:keitai web"
+                "text:Hello,world"
                 ])).to eq(
-                "created_at:2013-11-13 08:02:56 +0900\ttext:Hello,world\ttweet_id:12345\tscreen_name:screen_name\tfriends_count:0\tfollowers_count:0\tretweet_count:0\tuser.id:0\tplace:0\tall_tweets_count:1\tclient:keitai web")
+                "created_at:2013-11-13 08:02:56 +0900\ttext:Hello,world")
         end
     end
 
