@@ -20,6 +20,10 @@ class Cleaner
         twitter_client.gsub(/<.*">/,"").gsub(/<\/a>/,"").gsub(/(\r\n|\r|\n|\t)/,"")
     end
 
+    def modify_place_str(place = nil)
+        place ? place.gsub(",","\tplace_prefecture:") : "\tplace_prefecture:"
+    end
+
     def set_label(label, tweet_status)
         "#{label}:#{tweet_status}"
     end
