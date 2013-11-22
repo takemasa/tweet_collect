@@ -32,6 +32,7 @@ class Collector
         end
         tweets
         rescue Twitter::Error => e
-            raise "error_time:#{Time.now}", "class:#{e.class}  message:#{e.message}"
+            Writer.new(@keyword).output_error(err_message = "error_time:#{Time.now}\tclass:#{e.class}\tmessage:#{e.message}")
+            raise err_message
     end
 end
