@@ -47,7 +47,7 @@ class Cleaner
         when 'simple'
             ary = [created_at, user_name, text]
         when 'numeric'
-            ary = [created_at, use_id, tweet_id, retweet_count, friends_count, followers_count, all_tweet_count]
+            ary = [created_at, user_id, tweet_id, retweet_count, friends_count, followers_count, all_tweet_count]
         when 'all'
             ary = [created_at, user_name, user_id, text, tweet_id, client, retweet_count, friends_count, followers_count, all_tweet_count, place]
         end
