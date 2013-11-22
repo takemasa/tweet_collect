@@ -33,6 +33,10 @@ class Collector
         tweets
         rescue Twitter::Error => e
             Writer.new(@keyword).output_error(err_message = "error_time:#{Time.now}\tclass:#{e.class}\tmessage:#{e.message}")
-            raise err_message
+            if e.class == Twitter::Error::TooManyRequests || Twitter::Error::Unauthorized
+                raise err_message
+            else
+                retry
+            end
     end
 end
