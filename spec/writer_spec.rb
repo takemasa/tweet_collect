@@ -3,8 +3,8 @@ require  'writer'
 describe Writer do
 
     after(:each) do
-        system 'rm -rf ./tweet/test/*/*/*'
-        system 'rm -f ./tweet/error/*test.txt'
+        # system 'rm -rf ./tweet/data/test'
+        system 'rm -f ./tweet/error/test.txt'
         system 'rm -f ./tweet/id/test.txt'
     end
 
@@ -33,7 +33,7 @@ describe Writer do
         it 'はkeywordに対応したツイート保存用のディレクトリを作成する' do
             day = Time.now
             Writer.new('テスト').make_dir
-            expect(FileTest.exist?("./tweet/test/#{day.year}/#{day.month}")).to eq(true)
+            expect(FileTest.exist?("./tweet/data/test/#{day.year}/#{day.month}")).to eq(true)
         end
         it 'はkeywordに対応したエラーメッセージ保存用のディレクトリを作成する' do
             day = Time.now
@@ -52,7 +52,7 @@ describe Writer do
             day = Time.now
             wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
             Writer.new('テスト').output_tweet('tweet')
-            expect(FileTest.exist?("./tweet/test/#{day.year}/#{day.month}/#{day.year}-#{day.month}-#{day.day}-#{wdays[day.wday]}_test.ltsv")).to eq(true)
+            expect(FileTest.exist?("./tweet/data/test/#{day.year}/#{day.month}/#{day.year}-#{day.month}-#{day.day}-#{wdays[day.wday]}_test.ltsv")).to eq(true)
         end
     end
 
@@ -60,7 +60,7 @@ describe Writer do
         it 'はエラーメッセージをファイルに出力する' do
             day = Time.now
             wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
-            Writer.new('テスト').output_error('error')
+            Writer.new('テスト').output_error(['error'])
             expect(FileTest.exist?("./tweet/error/err_#{day.year}-#{day.month}-#{day.day}-#{wdays[day.wday]}_test.txt")).to eq(true)
         end
     end

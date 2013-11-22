@@ -22,14 +22,14 @@ class Writer
     end
 
     def make_dir
-        FileUtils::mkdir_p("./tweet/#{@output_name}/#{@day.year}/#{@day.month}") unless FileTest.exist?("./tweet/#{@output_name}/#{@day.year}/#{@day.month}")
+        FileUtils::mkdir_p("./tweet/data/#{@output_name}/#{@day.year}/#{@day.month}") unless FileTest.exist?("./tweet/data/#{@output_name}/#{@day.year}/#{@day.month}")
         FileUtils::mkdir_p("./tweet/id") unless FileTest.exist?("./tweet/id}")
         FileUtils::mkdir_p("./tweet/error") unless FileTest.exist?("./tweet/error}")
     end
 
     def output_tweet(tweet)
         tweet_filename = create_tweet_filename
-        File.open("./tweet/#{tweet_filename}",'a+'){|file|
+        File.open("./tweet/data/#{tweet_filename}",'a+'){|file|
             file.puts tweet
         }
     end
