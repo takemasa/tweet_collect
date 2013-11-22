@@ -11,7 +11,7 @@ class Collector
         @lang = lang
         @result_type = result_type
     end
-    attr_reader :since_id
+    attr_accessor :since_id
 
     def get_since_id
         since_id = 0
