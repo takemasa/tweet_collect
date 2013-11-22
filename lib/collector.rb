@@ -26,11 +26,11 @@ class Collector
     end
 
     def search_tweet(client) # searchによって取得したTwitter::Tweetクラスのオブジェクトを100件返す
-        tweets = []
+        ary_tweets = []
         client.search(@keyword, :count => 100, :result_type => @result_type, :since_id => @since_id, :lang => @lang).results.reverse.each do |tweet|
-            tweets << tweet
+            ary_tweets << tweet
         end
-        tweets
+        ary_tweets
         rescue Twitter::Error => e
             Writer.new(@keyword).output_error(err_message = "error_time:#{Time.now}\tclass:#{e.class}\tmessage:#{e.message}")
             if e.class == Twitter::Error::TooManyRequests || Twitter::Error::Unauthorized
