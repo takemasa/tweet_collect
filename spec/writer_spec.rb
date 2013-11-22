@@ -51,7 +51,7 @@ describe Writer do
         it 'はツイートをファイルに出力する' do
             day = Time.now
             wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
-            Writer.new('テスト').output_tweet
+            Writer.new('テスト').output_tweet('tweet')
             expect(FileTest.exist?("./tweet/test/#{day.year}/#{day.month}/#{day.year}-#{day.month}-#{day.day}-#{wdays[day.wday]}_test.ltsv")).to eq(true)
         end
     end
@@ -60,7 +60,7 @@ describe Writer do
         it 'はエラーメッセージをファイルに出力する' do
             day = Time.now
             wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
-            Writer.new('テスト').output_error
+            Writer.new('テスト').output_error('error')
             expect(FileTest.exist?("./tweet/error/err_#{day.year}-#{day.month}-#{day.day}-#{wdays[day.wday]}_test.txt")).to eq(true)
         end
     end

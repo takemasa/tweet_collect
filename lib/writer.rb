@@ -34,10 +34,10 @@ class Writer
         }
     end
 
-    def output_error
+    def output_error(error_ary)
         error_filename = create_error_filename
         File.open("./tweet/#{error_filename}",'a+'){|tweet|
-            tweet.puts @error_ary
+            tweet.puts error_ary
         }
     end
 
