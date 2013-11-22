@@ -1,6 +1,6 @@
 class Cleaner
 
-    def initialize(ary_type = 'all')
+    def initialize(ary_type)
         @ary_type = ary_type
     end
 
