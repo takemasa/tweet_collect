@@ -7,7 +7,7 @@ describe Collector do
             expect{Collector.new}.to raise_error(ArgumentError)
         end
         it 'はsince_idが存在しないとき0を代入' do
-            expect(Collector.new('駅').since_id).to eq(0)
+            expect(Collector.new('テスト').since_id).to eq(0)
         end
     end
 
