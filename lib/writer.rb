@@ -41,10 +41,10 @@ class Writer
         }
     end
 
-    def output_id
+    def output_id(id_ary)
         id_filename = create_id_filename
         File.open("./tweet/#{id_filename}",'a+'){|tweet|
-            tweet.puts @id_ary
+            tweet.puts id_ary
         }
     end
 

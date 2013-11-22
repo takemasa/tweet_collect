@@ -67,7 +67,7 @@ describe Writer do
 
     describe 'output_id' do
         it 'はツイートidをファイルに出力する' do
-            Writer.new('テスト').output_id
+            Writer.new('テスト').output_id('test')
             expect(FileTest.exist?("./tweet/id/test.txt")).to eq(true)
         end
     end
