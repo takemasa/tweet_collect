@@ -6,10 +6,10 @@ require 'bundler/setup'
 Bundler.require
 
 (keyword, account_id, ary_type, result_type, lang) = ARGV
-
+writer = Writer.new(keyword)
+writer.make_dir
 authen = Authenticater.new(account_id)
 collector = Collector.new(keyword, result_type, lang)
-writer = Writer.new(keyword)
 cleaner = Cleaner.new(ary_type)
 ary_error = []
 tweets = []
@@ -46,7 +46,6 @@ ary_id = []
 end
 
 # ファイルへの出力処理
-writer.make_dir
 writer.output_tweet(ary_all_tweets)
 writer.output_error(ary_error) unless ary_error.empty?
 unless ary_id.empty?
