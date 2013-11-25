@@ -8,19 +8,18 @@ Bundler.require
 (keyword, account_id, ary_type, result_type, lang) = ARGV
 writer = Writer.new(keyword)
 writer.make_dir
-authen = Authenticater.new(account_id)
+client = Authenticater.new(account_id).get_client
 collector = Collector.new(keyword, result_type, lang)
 cleaner = Cleaner.new(ary_type)
 ary_error = []
 tweets = []
 ary_all_tweets = []
 ary_id = []
-
 5.times do
     tweet_id = nil
     tweet_text = nil
     # ツイート取得を実行
-    result = collector.search_tweet(authen.get_client)
+    result = collector.search_tweet(client)
     # 出力先をツイートとエラーのどちらにするかを判断
     result.class == Array ? tweets = result : ary_error << result
 
