@@ -7,3 +7,4 @@ gem "zipruby"
 gem "rspec"
 gem "guard-rspec"
 gem "fuubar"
+gem 'parallel'
