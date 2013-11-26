@@ -10,12 +10,12 @@ class Authenticater
 
     def get_access_key(account_id)
         tw_access_key = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/twaccount.yaml'))
-        if tw_access_key["consumer_key#{account_id}"]
+        if tw_access_key["consumer_key_#{account_id}"]
             return ({
-                :consumer_key => tw_access_key["consumer_key#{account_id}"],
-                :consumer_secret => tw_access_key["consumer_secret#{account_id}"],
-                :oauth_token => tw_access_key["oauth_token#{account_id}"],
-                :oauth_token_secret => tw_access_key["oauth_token_secret#{account_id}"]
+                :consumer_key => tw_access_key["consumer_key_#{account_id}"],
+                :consumer_secret => tw_access_key["consumer_secret_#{account_id}"],
+                :oauth_token => tw_access_key["oauth_token_#{account_id}"],
+                :oauth_token_secret => tw_access_key["oauth_token_secret_#{account_id}"]
                 })
         else
             raise 'account_id not exist'
