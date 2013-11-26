@@ -15,6 +15,7 @@ all_account_ids -= 1
 ary_account_ids = (1..all_account_ids).to_a
 
 3.times do
+    begin
         Parallel.each(ary_account_ids, in_threds: 4) do |account_id|
             tweet = tweets.sample
             sleep_time = rand(600) #3600 1分~60時間の間隔でtweet
@@ -23,4 +24,7 @@ ary_account_ids = (1..all_account_ids).to_a
             puts "#{tw_username["username_#{account_id}"]} tweet #{tweet} (#{Time.now})"
             Authenticater.new(account_id).get_client.update tweet
         end
+    rescue Twitter::Error::Forbidden
+        retry
+    end
 end
