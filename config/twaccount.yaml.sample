@@ -1,8 +1,8 @@
-consumer_key_0: dummy_consumer_key
-consumer_secret_0: dummy_consumer_secret
-oauth_token_0: dummy_oauth_token
-oauth_token_secret_0: dummy_oauth_token_secret
-username_0: dummy
+consumer_key_dummy: dummy_consumer_key
+consumer_secret_dummy: dummy_consumer_secret
+oauth_token_dummy: dummy_oauth_token
+oauth_token_secret_dummy: dummy_oauth_token_secret
+username_dummy: dummy
 
 consumer_key_1:
 consumer_secret_1:

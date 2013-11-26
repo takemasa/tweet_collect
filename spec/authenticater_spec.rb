@@ -13,7 +13,7 @@ describe Authenticater do
       expect{Authenticater.new('zero').tw_access_key}.to raise_error 'account_id not exist'
     end
     it 'はyamlファイルからアカウント情報を取得' do
-      expect(Authenticater.new(0).tw_access_key).to eq({
+      expect(Authenticater.new('dummy').tw_access_key).to eq({
         :consumer_key => 'dummy_consumer_key',
         :consumer_secret => 'dummy_consumer_secret',
         :oauth_token => 'dummy_oauth_token',
