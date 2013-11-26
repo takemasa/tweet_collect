@@ -1,5 +1,4 @@
 *.bundle
-/*.lock
 /vendor/bundle
 *.yaml
 *.txt
