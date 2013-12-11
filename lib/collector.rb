@@ -37,6 +37,7 @@ class Collector
                 raise err_message
             else
                 retry
+                sleep(3)
             end
     end
 end
