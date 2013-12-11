@@ -36,6 +36,7 @@ class Collector
             if e.class == Twitter::Error::TooManyRequests || Twitter::Error::Unauthorized
                 raise err_message
             else
+                sleep(3)
                 retry
                 sleep(3)
             end

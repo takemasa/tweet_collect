@@ -6,7 +6,7 @@ class Writer
         @requested_output_name = requested_output_name
         @output_name = get_output_name
         @day = Time.now
-        @wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
+        @wdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     end
     attr_reader :output_name
 
