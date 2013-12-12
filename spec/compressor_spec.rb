@@ -22,7 +22,7 @@ describe Compressor do
     end
 
     describe 'delete_old_ltsv' do
-        it 'は圧縮済みのltsvファイルを削除' do
+        it 'は日付が今日でないltsvファイルを削除' do
             Compressor.new.delete_old_ltsv
             expect(FileTest.exist?("#{old_filename}")).to eq(false)
         end
