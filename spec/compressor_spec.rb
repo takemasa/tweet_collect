@@ -16,7 +16,7 @@ describe Compressor do
 
     describe 'compress_file' do
         it '受け取ったファイル名に基づいてファイルをgzip圧縮する' do
-            Compressor.new.compress_file
+            Compressor.new
             expect(FileTest.exist?("#{old_filename}.gz")).to eq(true)
         end
     end

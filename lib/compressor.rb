@@ -5,7 +5,7 @@ class Compressor
 
     def initialize
         @old_files = get_old_filename
-        @gzip_files = []
+        @gzip_files = compress_file
     end
     attr_reader :old_files
     attr_reader :gzip_files
@@ -21,10 +21,11 @@ class Compressor
     end
 
     def compress_file
+        gzips = []
         self.old_files.each{|filename|
             file = File.open(filename).read
             compress_file = "#{filename}.gz"
-            self.gzip_files << compress_file
+            gzips << compress_file
             Zlib::GzipWriter.open(compress_file) {|gz|
                 gz.write file
             }
