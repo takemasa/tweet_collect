@@ -15,4 +15,11 @@ describe Compressor do
         end
     end
 
+    describe 'compress_file' do
+        it '受け取ったファイル名に基づいてファイルをgzip圧縮する' do
+            expect(Compressor.new.compress_file([filename])).to eq(true)
+            expect(FileTest.exist?("#{filename}.gz")).to eq(true)
+        end
+    end
+
 end
