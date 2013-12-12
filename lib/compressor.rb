@@ -31,4 +31,10 @@ class Compressor
         }
     end
 
+    def delete_old_ltsv
+        self.old_files.each{|of|
+            system "rm -f #{of}"
+        }
+    end
+
 end
