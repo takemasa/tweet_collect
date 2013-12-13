@@ -60,4 +60,3 @@ class Compressor
         olds
     end
 end
-# initializeにもりすぎなきがする
