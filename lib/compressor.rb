@@ -22,7 +22,7 @@ class Compressor
     end
 
     def delete_old_ltsv
-        self.old_files.each{|of|
+        @old_files.each{|of|
             system "rm -f #{of}"
         }
     end
@@ -34,6 +34,7 @@ class Compressor
         }
         gzips
     end
+
     private
     def create_compress_list
         gz_filenames = []
