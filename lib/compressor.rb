@@ -27,6 +27,12 @@ class Compressor
         }
     end
 
+    def delete_old_gzip
+        self.get_gzip_list.each{|gf|
+            system "rm -f #{gf}"
+        }
+    end
+
     def get_gzip_list
         gzips = []
         Dir.glob("./tweet/data/**/*.ltsv.gz").each {|all_gzip|
@@ -54,3 +60,4 @@ class Compressor
         olds
     end
 end
+# initializeにもりすぎなきがする

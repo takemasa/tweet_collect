@@ -40,6 +40,10 @@ describe Compressor do
         end
     end
 
+    describe 'delete_gzip' do
+        it 'は作成した圧縮ファイルを削除' do
+            Compressor.new.delete_old_gzip
+            expect(FileTest.exist?("#{old_filename}.gz")).to eq(false)
         end
     end
 
