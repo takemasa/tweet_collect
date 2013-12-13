@@ -8,15 +8,21 @@ describe Compressor do
     File.open("#{new_filename}",'a+')
 
 
-    describe 'get_old_filename' do
+    describe 'get_old_filename_list' do
         it 'は現在の日付がファイル名に含まれないファイrの一覧を取得' do
             expect(Compressor.new.old_files).to eq([old_filename])
         end
     end
 
+    describe 'create_compress_list' do
+        it 'は作成する圧縮ファイル名を返す' do
+            expect(Compressor.new.gzip_files).to eq(["#{old_filename}.gz"])
+        end
+    end
+
     describe 'compress_file' do
         it '受け取ったファイル名に基づいてファイルをgzip圧縮する' do
-            Compressor.new
+            Compressor.new.compress_file
             expect(FileTest.exist?("#{old_filename}.gz")).to eq(true)
         end
     end

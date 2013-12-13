@@ -4,21 +4,11 @@ Bundler.require
 class Compressor
 
     def initialize
-        @old_files = get_old_filename
-        @gzip_files = compress_file
+        @old_files = get_old_filename_list
+        @gzip_files = create_compress_list
     end
     attr_reader :old_files
     attr_reader :gzip_files
-
-    def get_old_filename
-        day = Time.now
-        date = "#{day.year}-#{day.month}-#{day.day}"
-        olds = []
-        Dir.glob("./tweet/data/**/*.ltsv").each {|all_ltsv|
-                olds << all_ltsv unless all_ltsv.include?(date)
-        }
-        olds
-    end
 
     def compress_file
         gzips = []
@@ -39,4 +29,22 @@ class Compressor
         }
     end
 
+    private
+    def create_compress_list
+        gz_filenames = []
+        @old_files.each{|of|
+            gz_filenames << "#{of}.gz"
+        }
+        gz_filenames
+    end
+
+    def get_old_filename_list
+        day = Time.now
+        date = "#{day.year}-#{day.month}-#{day.day}"
+        olds = []
+        Dir.glob("./tweet/data/**/*.ltsv").each {|all_ltsv|
+                olds << all_ltsv unless all_ltsv.include?(date)
+        }
+        olds
+    end
 end
