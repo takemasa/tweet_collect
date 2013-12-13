@@ -11,16 +11,14 @@ class Compressor
     attr_reader :gzip_files
 
     def compress_file
-        gzips = []
-        self.old_files.each{|filename|
+        @old_files.each{|filename|
             file = File.open(filename).read
-            compress_file = "#{filename}.gz"
-            gzips << compress_file
-            Zlib::GzipWriter.open(compress_file) {|gz|
-                gz.write file
+            @gzip_files.each{|gzfile|
+                Zlib::GzipWriter.open(gzfile) {|gz|
+                    gz.write file
+                }
             }
         }
-        gzips
     end
 
     def delete_old_ltsv
