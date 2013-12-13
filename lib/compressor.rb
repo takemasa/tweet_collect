@@ -29,6 +29,13 @@ class Compressor
         }
     end
 
+    def get_gzip_list
+        gzips = []
+        Dir.glob("./tweet/data/**/*.ltsv.gz").each {|all_gzip|
+                gzips << all_gzip
+        }
+        gzips
+    end
     private
     def create_compress_list
         gz_filenames = []

@@ -33,6 +33,13 @@ describe Compressor do
             expect(FileTest.exist?("#{old_filename}")).to eq(false)
         end
     end
+
+    describe 'get_gzip_list' do
+        it 'は存在するgzipファイルを取得' do
+            expect(Compressor.new.get_gzip_list).to eq(["#{old_filename}.gz"])
+        end
+    end
+
         end
     end
 
