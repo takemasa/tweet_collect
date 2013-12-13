@@ -30,6 +30,7 @@ class Compressor
                 gz.write file
             }
         }
+        gzips
     end
 
     def delete_old_ltsv
