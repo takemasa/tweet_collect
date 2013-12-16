@@ -42,6 +42,7 @@ ary_id = []
     }
     # ツイートが1件でも取得できていればそのidをid配列に格納
     ary_id << tweet_id if tweet_id
+    sleep(5)
 end
 
 # ファイルへの出力処理

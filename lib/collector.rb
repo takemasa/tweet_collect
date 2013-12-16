@@ -38,7 +38,6 @@ class Collector
             else
                 sleep(3)
                 retry
-                sleep(3)
             end
     end
 end
