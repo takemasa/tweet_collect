@@ -14,7 +14,6 @@ end
 all_account_ids -= 1
 ary_account_ids = (1..all_account_ids).to_a
 
-3.times do
     begin
         Parallel.each(ary_account_ids, in_threds: 4) do |account_id|
             tweet = tweets.sample
@@ -27,4 +26,3 @@ ary_account_ids = (1..all_account_ids).to_a
     rescue Twitter::Error::Forbidden
         retry
     end
-end
