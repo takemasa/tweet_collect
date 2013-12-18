@@ -24,6 +24,7 @@ class Authenticater
     private :get_access_key
 
     def get_twitter_client
+        raise 'account not exist' unless @tw_key
         tw_client = Twitter::Client.new(@tw_key)
     end
     end

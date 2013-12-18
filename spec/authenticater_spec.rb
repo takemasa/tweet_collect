@@ -15,4 +15,10 @@ describe Authenticater do
       })
     end
   end
+
+  describe 'get_twitter_client' do
+    it 'はアカウント情報がnilのときエラーを返す' do
+      expect{Authenticater.new.get_twitter_client}.to raise_error 'account not exist'
+    end
+  end
 end
