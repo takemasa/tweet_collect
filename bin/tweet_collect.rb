@@ -8,7 +8,7 @@ Bundler.require
 (keyword, account_id, ary_type, result_type, lang) = ARGV
 writer = Writer.new(keyword)
 writer.make_dir
-client = Authenticater.new(account_id).get_client
+client = Authenticater.new(account_id).get_twitter_client
 collector = Collector.new(keyword, result_type, lang)
 cleaner = Cleaner.new(ary_type)
 ary_error = []
