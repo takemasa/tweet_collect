@@ -23,13 +23,13 @@ class Compressor
 
     def delete_old_ltsv
         @old_files.each{|of|
-            system "rm -f #{of}"
+            File.delete(of)
         }
     end
 
     def delete_old_gzip
         self.get_gzip_list.each{|gf|
-            system "rm -f #{gf}"
+            File.delete(gf)
         }
     end
 
