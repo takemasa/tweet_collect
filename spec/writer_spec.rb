@@ -2,9 +2,8 @@ require  'writer'
 
 describe Writer do
 
-    after(:each) do
-        # system 'rm -rf ./tweet/data/test'
-        system 'rm -f ./tweet/error/test.txt'
+    after(:all) do
+        system 'rm -f ./tweet/error/*test.txt'
         system 'rm -f ./tweet/id/test.txt'
     end
 
