@@ -3,7 +3,7 @@ Bundler.require
 
 class Authenticater
 
-    def initialize(account_id)
+    def initialize(account_id = nil)
         @tw_key = get_access_key(account_id)
     end
     attr_reader :tw_key
@@ -18,7 +18,7 @@ class Authenticater
                 :oauth_token_secret => access_key["oauth_token_secret_#{account_id}"]
                 })
         else
-            raise 'account_id not exist'
+            nil
         end
     end
     private :get_access_key

@@ -2,15 +2,9 @@ require 'authenticater'
 
 describe Authenticater do
 
-  describe 'initialize' do
-    it 'はaccount_idが入力されてないとエラー' do
-      expect{Authenticater.new}.to raise_error(ArgumentError)
-    end
-  end
-
   describe 'get_access_key' do
-    it 'はaccount_idが不正な値のときエラー' do
-      expect{Authenticater.new('zero').tw_key}.to raise_error 'account_id not exist'
+    it 'はaccount_idが空のとき、nilを返す' do
+      expect(Authenticater.new.tw_key).to eq(nil)
     end
     it 'はyamlファイルからtwitterアカウント情報を取得' do
       expect(Authenticater.new('dummy').tw_key).to eq({
