@@ -4,18 +4,25 @@ Bundler.require
 class Authenticater
 
     def initialize(account_id = nil)
+        @tw_access_key = check_twaccount
         @tw_key = get_access_key(account_id)
     end
     attr_reader :tw_key
+    attr_reader :tw_access_key
+
+    def check_twaccount
+        twaccount = File.expand_path(File.dirname(__FILE__) + '/../config/twaccount.yaml')
+        File.open(twaccount,'a+') unless FileTest.exist?(twaccount)
+        return YAML.load_file(twaccount)
+    end
 
     def get_access_key(account_id)
-        access_key = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/twaccount.yaml'))
-        if access_key["consumer_key_#{account_id}"]
+        if @tw_access_key && @tw_access_key["consumer_key_#{account_id}"]
             return ({
-                :consumer_key => access_key["consumer_key_#{account_id}"],
-                :consumer_secret => access_key["consumer_secret_#{account_id}"],
-                :oauth_token => access_key["oauth_token_#{account_id}"],
-                :oauth_token_secret => access_key["oauth_token_secret_#{account_id}"]
+                :consumer_key => @tw_access_key["consumer_key_#{account_id}"],
+                :consumer_secret => @tw_access_key["consumer_secret_#{account_id}"],
+                :oauth_token => @tw_access_key["oauth_token_#{account_id}"],
+                :oauth_token_secret => @tw_access_key["oauth_token_secret_#{account_id}"]
                 })
         else
             nil

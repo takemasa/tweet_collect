@@ -2,6 +2,23 @@ require 'authenticater'
 
 describe Authenticater do
 
+  describe 'check_twaccount' do
+    origin_name = File.expand_path(File.dirname(__FILE__) + '/../config/twaccount.yaml')
+    tmp_name = File.expand_path(File.dirname(__FILE__) + '/../config/test_twaccount.yaml')
+
+    before(:all) do
+        File.rename(origin_name, tmp_name) if FileTest.exist?(origin_name)
+    end
+    after(:all) do
+        File.rename(tmp_name, origin_name) if FileTest.exist?(tmp_name)
+    end
+
+    it 'はtwaccount.yamlが存在しないとき作成する' do
+      Authenticater.new
+      expect(FileTest.exist?(origin_name)).to eq(true)
+    end
+  end
+
   describe 'get_access_key' do
     it 'はaccount_idが空のとき、nilを返す' do
       expect(Authenticater.new.tw_key).to eq(nil)
