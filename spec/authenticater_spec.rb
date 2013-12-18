@@ -38,4 +38,30 @@ describe Authenticater do
       expect{Authenticater.new.get_twitter_client}.to raise_error 'account not exist'
     end
   end
+
+
+  describe 'aws_authenticate' do
+    origin_name = File.expand_path(File.dirname(__FILE__) + '/../config/aws.yaml')
+    tmp_name = File.expand_path(File.dirname(__FILE__) + '/../config/test_aws.yaml')
+
+    before(:all) do
+        File.rename(origin_name, tmp_name) if FileTest.exist?(origin_name)
+    end
+    after(:all) do
+        File.rename(tmp_name, origin_name) if FileTest.exist?(tmp_name)
+    end
+
+    describe 'check_awsacconut' do
+      it 'はaws.yamlが存在しないとき作成する' do
+        Authenticater.new
+        expect(FileTest.exist?(origin_name)).to eq(true)
+      end
+    end
+
+    describe 'get_aws_client' do
+      it 'はawsキー情報がnilのときエラーを返す' do
+        expect{Authenticater.new.get_aws_client}.to raise_error{'no credentials'}
+      end
+    end
+  end
 end
