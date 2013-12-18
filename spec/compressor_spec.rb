@@ -11,7 +11,7 @@ describe Compressor do
 
 
     describe 'get_old_filename_list' do
-        it 'は現在の日付がファイル名に含まれないファイrの一覧を取得' do
+        it 'は現在の日付がファイル名に含まれないファイルの一覧を取得' do
             expect(Compressor.new.old_files).to eq([old_filename])
         end
     end
