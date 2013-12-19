@@ -1,5 +1,3 @@
-require 'compressor.rb'
-require 'authenticater.rb'
 require 'bundler/setup'
 Bundler.require
 
