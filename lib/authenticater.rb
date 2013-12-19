@@ -58,6 +58,7 @@ class Authenticater
     end
 
     def get_aws_client
-        @aws_key ? aws_client = AWS::S3.new(@aws_key) : raise{'no credentials'}
+        raise 'no credentials' unless @aws_key
+        aws_client = AWS::S3.new(@aws_key)
     end
 end
