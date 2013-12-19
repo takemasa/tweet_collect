@@ -1,6 +1,11 @@
 require  'cleaner'
 
 describe Cleaner do
+    describe 'initialize' do
+        it 'はary_typeがないときエラー' do
+            expect{Cleaner.new}.to raise_error('ary_type needed')
+        end
+    end
     describe 'get_retweeted' do
         it 'はリツイートされていた場合元のツイート本文にRTをつけて返す' do
             expect(Cleaner.new('simple').get_retweeted('Hello World')).to eq('RT Hello World')

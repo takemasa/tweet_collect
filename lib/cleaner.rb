@@ -1,6 +1,7 @@
 class Cleaner
 
-    def initialize(ary_type)
+    def initialize(ary_type = nil)
+        raise 'ary_type needed' unless ary_type
         @ary_type = ary_type
     end
 
