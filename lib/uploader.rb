@@ -3,7 +3,7 @@ require 'authenticater.rb'
 require 'bundler/setup'
 Bundler.require
 
-class Uploder
+class Uploader
 
     def initialize(gzfile)
         @directory = get_dir(gzfile)
