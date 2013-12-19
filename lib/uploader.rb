@@ -5,14 +5,14 @@ Bundler.require
 
 class Uploader
 
-    def initialize(gzfile)
-        @directory = get_dir(gzfile)
+    def initialize(local_gzfile)
+        @directory = get_dir(local_gzfile)
     end
     attr_reader :directory
 
-    def get_dir(gzfile)
-        dir = gzfile.gsub("./tweet/data/", "")
-        return "dsb-twitter/#{dir}"
+    def get_dir(local_gzfile)
+        dir = local_gzfile.gsub("./tweet/data/", "")
+        return File.dirname("dsb-twitter/#{dir}")
     end
 
     def upload(client, file_name)
