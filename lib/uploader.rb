@@ -15,7 +15,7 @@ class Uploader
         return File.dirname("dsb-twitter/#{dir}")
     end
 
-    def upload(client, file_name)
-            client.buckets(File.dirname(file_name)).objects(file_name).write(:file => file_name)
+    def upload(client, local_gzfile)
+            client.buckets[@directory].objects[File.basename(local_gzfile)].write(:file => local_gzfile)
     end
 end
