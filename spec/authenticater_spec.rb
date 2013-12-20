@@ -14,8 +14,7 @@ describe Authenticater do
     end
 
     it 'はtwaccount.yamlが存在しないとき作成する' do
-      Authenticater.new
-      expect(FileTest.exist?(origin_name)).to eq(true)
+      expect{Authenticater.new}.to raise_error{'File not found'}
     end
   end
 
@@ -41,6 +40,7 @@ describe Authenticater do
 
 
   describe 'aws_authenticate' do
+
     origin_name = File.expand_path(File.dirname(__FILE__) + '/../config/aws.yaml')
     tmp_name = File.expand_path(File.dirname(__FILE__) + '/../config/test_aws.yaml')
 
@@ -53,8 +53,7 @@ describe Authenticater do
 
     describe 'check_awsacconut' do
       it 'はaws.yamlが存在しないとき作成する' do
-        Authenticater.new
-        expect(FileTest.exist?(origin_name)).to eq(true)
+        expect{Authenticater.new}.to raise_error{'File not found'}
       end
     end
 

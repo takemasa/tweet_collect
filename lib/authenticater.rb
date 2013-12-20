@@ -16,13 +16,13 @@ class Authenticater
 
     def check_twaccount
         twaccount = File.expand_path(File.dirname(__FILE__) + '/../config/twaccount.yaml')
-        File.open(twaccount,'a+') unless FileTest.exist?(twaccount)
+        raise 'File not found' unless FileTest.exist?(twaccount)
         return YAML.load_file(twaccount)
     end
 
     def check_awsaccount
         awsaccount = File.expand_path(File.dirname(__FILE__) + '/../config/aws.yaml')
-        File.open(awsaccount,'a+') unless FileTest.exist?(awsaccount)
+        raise 'File not found'  unless FileTest.exist?(awsaccount)
         return YAML.load_file(awsaccount)
     end
 
