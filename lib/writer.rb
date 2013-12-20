@@ -54,11 +54,11 @@ class Writer
 
     private
     def create_tweet_filename
-        "#{@output_name}/#{@day.year}/#{@day.month}/#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
+        "#{@output_name}/#{@day.year}/#{@day.month}/#{@day.strftime("%Y-%m-%d")}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
     end
 
     def create_error_filename
-        "error/err_#{@day.year}-#{@day.month}-#{@day.day}-#{@wdays[@day.wday]}_#{@output_name}.txt"
+        "error/err_#{@day.strftime("%Y-%m-%d")}-#{@wdays[@day.wday]}_#{@output_name}.txt"
     end
 
 
