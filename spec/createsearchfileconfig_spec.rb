@@ -25,7 +25,15 @@ describe 'createsearchfileconfig' do
 
         it 'は絞り込み検索をしたいファイルの場所を返す' do
             expect(CreateSearchFileConfig.new.create_filepass).to eq(
-                ["dsb-twitter/eki/2013/12/2013-12-16", "dsb-twitter/eki/2013/12/2013-12-17", "dsb-twitter/eki/2013/12/2013-12-18", "dsb-twitter/densha/2013/12/2013-12-16", "dsb-twitter/densha/2013/12/2013-12-17", "dsb-twitter/densha/2013/12/2013-12-18", "dsb-twitter/chien/2013/12/2013-12-16", "dsb-twitter/chien/2013/12/2013-12-17", "dsb-twitter/chien/2013/12/2013-12-18"])
+                ["dsb-twitter/eki/2013/12/2013-12-06",
+                    "dsb-twitter/densha/2013/12/2013-12-06",
+                    "dsb-twitter/chien/2013/12/2013-12-06",
+                    "dsb-twitter/eki/2013/12/2013-12-07",
+                    "dsb-twitter/densha/2013/12/2013-12-07",
+                    "dsb-twitter/chien/2013/12/2013-12-07",
+                    "dsb-twitter/eki/2013/12/2013-12-08",
+                    "dsb-twitter/densha/2013/12/2013-12-08",
+                    "dsb-twitter/chien/2013/12/2013-12-08"])
         end
     end
 end
