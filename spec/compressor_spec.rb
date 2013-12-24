@@ -16,12 +16,6 @@ describe Compressor do
         end
     end
 
-    describe 'create_compress_list' do
-        it 'は作成する圧縮ファイル名を返す' do
-            expect(Compressor.new.gzip_files).to eq(["#{old_filename}.gz"])
-        end
-    end
-
     describe 'compress_file' do
         it '受け取ったファイル名に基づいてファイルをgzip圧縮する' do
             Compressor.new.compress_file
@@ -29,23 +23,9 @@ describe Compressor do
         end
     end
 
-    describe 'delete_old_ltsv' do
-        it 'は日付が今日でないltsvファイルを削除' do
-            Compressor.new.delete_old_ltsv
-            expect(FileTest.exist?("#{old_filename}")).to eq(false)
-        end
-    end
-
     describe 'get_gzip_list' do
         it 'は存在するgzipファイルを取得' do
             expect(Compressor.new.get_gzip_list).to eq(["#{old_filename}.gz"])
-        end
-    end
-
-    describe 'delete_gzip' do
-        it 'は作成した圧縮ファイルを削除' do
-            Compressor.new.delete_old_gzip
-            expect(FileTest.exist?("#{old_filename}.gz")).to eq(false)
         end
     end
 
