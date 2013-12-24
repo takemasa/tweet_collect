@@ -20,7 +20,7 @@ begin
         sleep_time = rand(600)
         sleep sleep_time
         p "#{tw_username["username_#{account_id}"]} tweet #{tweet} (#{Time.now})"
-        Authenticater.new(account_id).get_client.update tweet
+        Authenticater.new(account_id).get_twitter_client.update tweet
     end
 rescue Twitter::Error::Forbidden
     retry
