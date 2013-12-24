@@ -1,8 +1,8 @@
 # 新しくファイルをダウンロードして絞り込むか、一度絞込み検索したファイルに対する再検索なのか newかretry
 search: new
-# fromからtoの期間に取得したツイートのうち、keywordを含むツイートに対して、searchwordで絞り込み検索を行う
-from: 2013/12/16
-to: 2013/12/18
+# fromからtoの期間に取得したツイートのうち、keywordを含むツイートに対して、searchwordで絞り込み検索を行う 10未満の数値は0詰めにする
+from: 2013/12/06
+to: 2013/12/08
 # keywordは,区切りで複数入力可
 keyword: [駅, 電車, 遅延]
 #searchword
