@@ -8,7 +8,7 @@ describe 'createsearchfileconfig' do
         end
     end
 
-    describe 'create_filepass' do
+    describe 'create_filepath' do
 
         origin_file = File.expand_path(File.dirname(__FILE__) + '/../config/search_config.yaml')
         tmp_file = File.expand_path(File.dirname(__FILE__) + '/../config/tmp_search_config.yaml')
@@ -24,7 +24,7 @@ describe 'createsearchfileconfig' do
         end
 
         it 'は絞り込み検索をしたいファイルの場所を返す' do
-            expect(CreateSearchFileConfig.new.create_filepass).to eq(
+            expect(CreateSearchFileConfig.new.create_filepath).to eq(
                 ["dsb-twitter/eki/2013/12/2013-12-06",
                     "dsb-twitter/densha/2013/12/2013-12-06",
                     "dsb-twitter/chien/2013/12/2013-12-06",

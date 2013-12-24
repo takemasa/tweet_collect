@@ -15,15 +15,15 @@ class CreateSearchFileConfig
         search_keyword
     end
 
-    def create_filepass
+    def create_filepath
         from = @search_config['from']
         to = @search_config['to']
-        filepass = []
+        filepath = []
         (Date.parse(from)..Date.parse(to)).each{ |i|
             date = i.to_s
             year, month, day = date.split('-')
-            self.get_keyword.each do |keyword| filepass << "dsb-twitter/#{keyword}/#{year}/#{month}/#{date}" end
+            self.get_keyword.each do |keyword| filepath << "dsb-twitter/#{keyword}/#{year}/#{month}/#{date}" end
         }
-        filepass
+        filepath
     end
 end
