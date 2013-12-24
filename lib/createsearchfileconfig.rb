@@ -18,26 +18,12 @@ class CreateSearchFileConfig
     def create_filepass
         from = @search_config['from']
         to = @search_config['to']
-        fyear, fmonth, fday = from.split('/')
-        tyear, tmonth, tday = to.split('/')
-        yearspan = []
-        for i in fyear..tyear; yearspan << i; end
-        monthspan = []
-        for i in fmonth..tmonth; monthspan << i; end
-        dayspan = []
-        for i in fday..tday; dayspan << i; end
-        keyword = self.get_keyword
         filepass = []
-        keyword.each do |key|
-            yearspan.each do |year|
-                monthspan.each do |month|
-                    dayspan.each do |day|
-                        filepass << "dsb-twitter/#{key}/#{year}/#{month}/#{year}-#{month}-#{day}"
-                    end
-                end
-            end
-        end
+        (Date.parse(from)..Date.parse(to)).each{ |i|
+            date = i.to_s
+            year, month, day = date.split('-')
+            self.get_keyword.each do |keyword| filepass << "dsb-twitter/#{keyword}/#{year}/#{month}/#{date}" end
+        }
         filepass
     end
-
 end
