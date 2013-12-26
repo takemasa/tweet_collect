@@ -18,7 +18,7 @@ class Cleaner
     end
 
     def modify_place_str(place = nil)
-        place ? place.gsub(",","\tplace_prefecture:") : "\tplace_prefecture:"
+        place ? place.gsub(", ","\tplace_prefecture:") : "\tplace_prefecture:"
     end
 
     def set_label(label, tweet_status)
@@ -26,7 +26,7 @@ class Cleaner
     end
     private :set_label
 
-    def create_ary_tweet (tweet, text, client, place)
+    def create_ary_tweet (tweet, text, client, place_status, place)
 
         created_at = set_label('created_at', tweet.created_at)
         user_name = set_label('user_name', tweet.user.screen_name)
@@ -38,6 +38,7 @@ class Cleaner
         friends_count = set_label('friends_count', tweet.user.friends_count)
         followers_count = set_label('followers_count', tweet.user.followers_count)
         all_tweet_count = set_label('all_tweet_count', tweet.user.statuses_count)
+        place_status = set_label('place_status', place_status)
         place = set_label('place_city', place)
 
         case @ary_type
@@ -46,7 +47,7 @@ class Cleaner
         when 'numeric'
             ary = [created_at, user_id, tweet_id, retweet_count, friends_count, followers_count, all_tweet_count]
         when 'all'
-            ary = [created_at, user_name, user_id, text, tweet_id, client, retweet_count, friends_count, followers_count, all_tweet_count, place]
+            ary = [created_at, user_name, user_id, text, tweet_id, client, retweet_count, friends_count, followers_count, all_tweet_count, place_status, place]
         end
         ary
     end
