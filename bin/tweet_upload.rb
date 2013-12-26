@@ -8,6 +8,6 @@ client = Authenticater.new.get_aws_client
 compressor = Compressor.new
 compressor.compress_file
 
-compressor.gzip_files.each{|gzfile|
+compressor.get_gzip_list.each{|gzfile|
     Uploader.new(gzfile).upload(client, gzfile)
 }
