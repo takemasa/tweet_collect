@@ -32,7 +32,7 @@ describe Writer do
         it 'はkeywordに対応したツイート保存用のディレクトリを作成する' do
             day = Time.now
             Writer.new('テスト').make_dir
-            expect(FileTest.exist?("./tweet/data/test/#{day.year}/#{day.month}")).to eq(true)
+            expect(FileTest.exist?("./tweet/data/test/#{day.year}/#{day.strftime("%m")}")).to eq(true)
         end
         it 'はkeywordに対応したエラーメッセージ保存用のディレクトリを作成する' do
             day = Time.now
@@ -51,7 +51,7 @@ describe Writer do
             day = Time.now
             wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
             Writer.new('テスト').output_tweet('tweet')
-            expect(FileTest.exist?("./tweet/data/test/#{day.year}/#{day.month}/#{day.strftime("%Y-%m-%d")}-#{wdays[day.wday]}_test.ltsv")).to eq(true)
+            expect(FileTest.exist?("./tweet/data/test/#{day.year}/#{day.strftime("%m")}/#{day.strftime("%Y-%m-%d")}-#{wdays[day.wday]}_test.ltsv")).to eq(true)
         end
     end
 

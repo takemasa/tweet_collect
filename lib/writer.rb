@@ -22,7 +22,7 @@ class Writer
     end
 
     def make_dir
-        FileUtils::mkdir_p("./tweet/data/#{@output_name}/#{@day.year}/#{@day.month}") unless FileTest.exist?("./tweet/data/#{@output_name}/#{@day.year}/#{@day.month}")
+        FileUtils::mkdir_p("./tweet/data/#{@output_name}/#{@day.year}/#{@day.strftime("%m")}") unless FileTest.exist?("./tweet/data/#{@output_name}/#{@day.year}/#{@day.strftime("%m")}")
         FileUtils::mkdir_p("./tweet/id") unless FileTest.exist?("./tweet/id}")
         FileUtils::mkdir_p("./tweet/error") unless FileTest.exist?("./tweet/error}")
     end
@@ -54,7 +54,7 @@ class Writer
 
     private
     def create_tweet_filename
-        "#{@output_name}/#{@day.year}/#{@day.month}/#{@day.strftime("%Y-%m-%d")}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
+        "#{@output_name}/#{@day.year}/#{@day.strftime("%m")}/#{@day.strftime("%Y-%m-%d")}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
     end
 
     def create_error_filename
