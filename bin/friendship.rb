@@ -20,4 +20,4 @@ puts "#{ary_username} : #{ary_account_id}"
 # ARGVのアカウントが配列内のアカウントをフォロー
 Authenticater.new(new_account_id).get_twitter_client.follow(ary_username)
 # 配列内のアカウントがARGVで指定したアカウントをフォロー
-ary_username.each{|old_account| Authenticater.new(old_account_id).get_twitter_client.follow(tw_username["username_#{new_account_id}"])}
+ary_username.each{|old_account_id| Authenticater.new(old_account_id).get_twitter_client.follow(tw_username["username_#{new_account_id}"])}
