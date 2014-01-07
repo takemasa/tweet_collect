@@ -39,7 +39,7 @@ class Compressor
 
     def get_old_filename_list
         day = Time.now
-        date = "#{day.year}-#{day.month}-#{day.day}"
+        date = "#{day.strftime("%Y-%m-%d")}"
         olds = []
         Dir.glob("./tweet/data/**/*.ltsv").each {|all_ltsv|
                 olds << all_ltsv unless all_ltsv.include?(date)
