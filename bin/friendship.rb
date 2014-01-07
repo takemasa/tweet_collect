@@ -18,6 +18,6 @@ ary_account_id += (2..all_account_ids).to_a.sort_by{rand}[0..3]
 ary_account_id.each{|user_id| ary_username << tw_username["username_#{user_id}"]}
 puts "#{ary_username} : #{ary_account_id}"
 # ARGVのアカウントが配列内のアカウントをフォロー
-Authenticater.new(new_account_id).get_client.follow(ary_username)
+Authenticater.new(new_account_id).get_twitter_client.follow(ary_username)
 # 配列内のアカウントがARGVで指定したアカウントをフォロー
-ary_username.each{|old_account| Authenticater.new(old_account_id).get_client.follow(tw_username["username_#{new_account_id}"])}
+ary_username.each{|old_account| Authenticater.new(old_account_id).get_twitter_client.follow(tw_username["username_#{new_account_id}"])}
