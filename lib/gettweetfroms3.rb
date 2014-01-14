@@ -6,6 +6,7 @@ class GetTweetFromS3
             o = filename.key
             FileUtils.mkdir_p("./refine_search/#{File.dirname(o)}")
             bucket.objects[o].read {|chunk| File.open("./refine_search/#{o}", 'wb').write(chunk)}
+            return o
         end
     end
 
