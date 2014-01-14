@@ -2,7 +2,7 @@ require 'gettweetfroms3'
 
 describe 'gettweetfroms3' do
 
-    GTF = GetTweetFromS3.new(['lib/gettweetfroms3.rb','lib/gettweetfroms3.test'])
+    GTF = GetTweetFromS3.new
     describe 'download' do
         it 'はファイルをダウンロードする' do
             m_buckets = double('buckets')
@@ -24,7 +24,7 @@ describe 'gettweetfroms3' do
 
     describe 'file_downloaded?' do
         it 'は指定期間のファイルがダウンロードできなかったときにエラーを返す' do
-            expect{GTF.file_downloaded?}.to raise_error('download failed :lib/gettweetfroms3.test')
+            expect(GTF.file_exists?(["lib/gettweetfroms3.test", nil])).to eq('download failed 1 files')
         end
     end
 end

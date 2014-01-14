@@ -1,7 +1,4 @@
 class GetTweetFromS3
-    def initialize(filepath)
-        @filename = filepath
-    end
 
     def download(client, s3_filename)
         bucket = client.buckets["dsb-twitter"]
@@ -12,11 +9,11 @@ class GetTweetFromS3
         end
     end
 
-    def file_downloaded?
-        file_status, failed_file_name =false, nil
-        @filename.each do |file|
-            file_status, failed_file_name = false, file unless File.exists?(file)
+    def file_exists?(files)
+        failed_files = 0
+        files.each do |file|
+            failed_files += 1 if !file
         end
-        raise "download failed :#{failed_file_name}" unless file_status
+        "download failed #{failed_files} files"
     end
 end
