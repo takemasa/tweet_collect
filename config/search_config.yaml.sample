@@ -6,4 +6,4 @@ to: 2013/12/08
 # keywordは,区切りで複数入力可
 keyword: [駅, 電車, 遅延]
 #searchword
-searchword: 電車
+searchword: [電車]
