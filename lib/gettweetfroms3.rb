@@ -4,8 +4,10 @@ class GetTweetFromS3
         bucket = client.buckets["dsb-twitter"]
         bucket.objects.with_prefix(s3_filename).each do |filename|
             o = filename.key
+            obj = bucket.objects[o]
             FileUtils.mkdir_p("./refine_search/#{File.dirname(o)}")
-            bucket.objects[o].read {|chunk| File.open("./refine_search/#{o}", 'wb').write(chunk)}
+            file = File.open("./refine_search/#{o}", 'wb')
+            obj.read {|chunk| file.write(chunk)}
             return o
         end
     end
