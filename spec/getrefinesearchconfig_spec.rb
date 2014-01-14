@@ -25,15 +25,15 @@ describe 'getrefinesearchconfig' do
 
         it 'は絞り込み検索をしたいファイルの場所を返す' do
             expect(GetRefineSearchConfig.new.create_filepath).to eq(
-                ["dsb-twitter/eki/2013/12/2013-12-06",
-                    "dsb-twitter/densha/2013/12/2013-12-06",
-                    "dsb-twitter/chien/2013/12/2013-12-06",
-                    "dsb-twitter/eki/2013/12/2013-12-07",
-                    "dsb-twitter/densha/2013/12/2013-12-07",
-                    "dsb-twitter/chien/2013/12/2013-12-07",
-                    "dsb-twitter/eki/2013/12/2013-12-08",
-                    "dsb-twitter/densha/2013/12/2013-12-08",
-                    "dsb-twitter/chien/2013/12/2013-12-08"])
+                ["eki/2013/12/2013-12-06",
+                    "densha/2013/12/2013-12-06",
+                    "chien/2013/12/2013-12-06",
+                    "eki/2013/12/2013-12-07",
+                    "densha/2013/12/2013-12-07",
+                    "chien/2013/12/2013-12-07",
+                    "eki/2013/12/2013-12-08",
+                    "densha/2013/12/2013-12-08",
+                    "chien/2013/12/2013-12-08"])
         end
     end
 end
