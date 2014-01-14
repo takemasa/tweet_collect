@@ -1,4 +1,4 @@
-class CreateS3Filepath
+class GetRefineSearchConfig
 
 
     def initialize

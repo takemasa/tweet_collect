@@ -1,6 +1,6 @@
-require 'creates3filepath'
+require 'getrefinesearchconfig'
 
-describe 'creates3filepath' do
+describe 'getrefinesearchconfig' do
 
     origin_file = File.expand_path(File.dirname(__FILE__) + '/../config/search_config.yaml')
     tmp_file = File.expand_path(File.dirname(__FILE__) + '/../config/tmp_search_config.yaml')
@@ -17,14 +17,14 @@ describe 'creates3filepath' do
 
     describe 'get_keyword' do
         it 'はキーワードを返す' do
-            expect(CreateS3Filepath.new.get_keyword).to eq(['eki','densha','chien'])
+            expect(GetRefineSearchConfig.new.get_keyword).to eq(['eki','densha','chien'])
         end
     end
 
     describe 'create_filepath' do
 
         it 'は絞り込み検索をしたいファイルの場所を返す' do
-            expect(CreateS3Filepath.new.create_filepath).to eq(
+            expect(GetRefineSearchConfig.new.create_filepath).to eq(
                 ["dsb-twitter/eki/2013/12/2013-12-06",
                     "dsb-twitter/densha/2013/12/2013-12-06",
                     "dsb-twitter/chien/2013/12/2013-12-06",
