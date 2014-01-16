@@ -26,7 +26,7 @@ class Cleaner
     end
     private :set_label
 
-    def create_ary_tweet (tweet, text, client, place_status, place)
+    def create_ary_tweet (tweet, text, client, retweeted, place_status, place)
 
         created_at = set_label('created_at', tweet.created_at)
         user_name = set_label('user_name', tweet.user.screen_name)
@@ -34,6 +34,7 @@ class Cleaner
         text = set_label('text', text)
         tweet_id = set_label('tweet_id', tweet.id)
         client = set_label('client', client)
+        retweeted_status = set_label('retweeted', retweeted)
         retweet_count = set_label('retweet_count', tweet.retweet_count)
         friends_count = set_label('friends_count', tweet.user.friends_count)
         followers_count = set_label('followers_count', tweet.user.followers_count)
@@ -47,7 +48,7 @@ class Cleaner
         when 'numeric'
             ary = [created_at, user_id, tweet_id, retweet_count, friends_count, followers_count, all_tweet_count]
         when 'all'
-            ary = [created_at, user_name, user_id, text, tweet_id, client, retweet_count, friends_count, followers_count, all_tweet_count, place_status, place]
+            ary = [created_at, user_name, user_id, text, tweet_id, client, retweeted_status, retweet_count, friends_count, followers_count, all_tweet_count, place_status, place]
         end
         ary
     end

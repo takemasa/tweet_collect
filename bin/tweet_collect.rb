@@ -32,10 +32,11 @@ ary_id = []
         tweet_text = tweet.retweeted_status ? cleaner.get_retweeted(tweet.retweeted_status.text) : tweet.text
         tweet_text = cleaner.modify_tweet_status_str(tweet_text)
         tweet_client = cleaner.modify_twitter_client_str(tweet.source)
+        retweeted_status = tweet.retweeted_status ? true : false
         tweet_place_status = tweet.place ? true : false
         tweet_place = tweet.place ? cleaner.modify_place_str(tweet.place.full_name) : cleaner.modify_place_str
         # ツイート要素からtweet配列を作成
-        ary_tweet = cleaner.create_ary_tweet(tweet, tweet_text, tweet_client, tweet_place_status, tweet_place)
+        ary_tweet = cleaner.create_ary_tweet(tweet, tweet_text, tweet_client, retweeted_status, tweet_place_status, tweet_place)
         # 配列を\tで結合
         tweet = cleaner.join_tweet_status(ary_tweet)
         # 結合したツイートをall_tweets配列に格納
