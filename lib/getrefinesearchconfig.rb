@@ -9,10 +9,10 @@ class GetRefineSearchConfig
     attr_reader :tw_keyword
 
     def get_keyword
-         search_keyword= []
+         keyword= []
         twk_config = @search_config['keyword']
-        twk_config.each{|twkconf| search_keyword << @tw_keyword[twkconf]}
-        search_keyword
+        twk_config.each{|twkconf| keyword << @tw_keyword[twkconf]}
+        keyword
     end
 
     def create_filepath
