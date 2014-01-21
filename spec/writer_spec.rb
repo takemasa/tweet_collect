@@ -3,8 +3,8 @@ require  'writer'
 describe Writer do
 
     after(:all) do
-        system 'rm -f ./tweet/error/*test.txt'
-        system 'rm -f ./tweet/id/test.txt'
+        FileUtils.remove_dir("./tweet/data/test")
+        File.delete("./tweet/id/test.txt")
     end
 
     describe 'initialize' do
