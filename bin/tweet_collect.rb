@@ -44,13 +44,17 @@ ary_id = []
     }
     # ツイートが1件でも取得できていればそのidをid配列に格納
     ary_id << tweet_id if tweet_id
-    sleep(5)
+    # ファイルへの出力処理
+    writer.output_tweet(ary_all_tweets)
+    writer.output_error(ary_error) unless ary_error.empty?
+    unless ary_id.empty?
+        collector.clear_idfile
+        writer.output_id(ary_id)
+    end
+    sleep_time = [*7..12].sample
+    sleep(sleep_time)
+    ary_all_tweets = []
+    ary_id = []
+    ary_error = []
 end
 
-# ファイルへの出力処理
-writer.output_tweet(ary_all_tweets)
-writer.output_error(ary_error) unless ary_error.empty?
-unless ary_id.empty?
-    collector.clear_idfile
-    writer.output_id(ary_id)
-end
