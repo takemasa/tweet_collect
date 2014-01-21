@@ -4,3 +4,5 @@
 *.txt
 /tweet
 /tmp
+.ltsv
+.gz
