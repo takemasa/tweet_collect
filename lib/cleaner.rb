@@ -37,6 +37,9 @@ class Cleaner
         all_tweet_count = set_label('all_tweet_count', tweet.user.statuses_count)
         place_status = set_label('place_status', place_status)
         place = set_label('place_city', place)
+        user_profile = set_label('profile', modify_tweet_status_str(tweet.user.description))
+        prof_url = set_label('prof_url', tweet.attrs[:user][:entities][:description][0][:expanded_url]) if tweet.attrs[:user][:entities][:description][0]
+        text_url = set_label('text_url', tweet.attrs[:entities][:urls][0][:expanded_url]) if tweet.attrs[:entities][:urls][0]
 
         case @ary_type
         when 'simple'
@@ -44,7 +47,7 @@ class Cleaner
         when 'numeric'
             ary = [created_at, user_id, tweet_id, retweet_count, friends_count, followers_count, all_tweet_count]
         when 'all'
-            ary = [created_at, user_name, user_id, text, tweet_id, client, retweeted_status, retweet_count, friends_count, followers_count, all_tweet_count, place_status, place]
+            ary = [created_at, user_name, user_id, user_profile, prof_url, text, text_url, tweet_id, client, retweeted_status, retweet_count, friends_count, followers_count, all_tweet_count, place_status, place]
         end
         ary
     end
