@@ -29,8 +29,6 @@ ary_id = []
          # ツイートが取得できていればそのidをインスタンス変数since_idに代入
         collector.since_id = tweet_id if tweet_id
         # ツイートの文字列処理
-        tweet_text = tweet.retweeted_status ? cleaner.get_retweeted(tweet.retweeted_status.text) : tweet.text
-        tweet_text = cleaner.modify_tweet_status_str(tweet_text)
         tweet_client = cleaner.modify_twitter_client_str(tweet.source)
         retweeted_status = tweet.retweeted_status ? true : false
         tweet_place_status = tweet.place ? true : false

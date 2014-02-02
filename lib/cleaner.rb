@@ -5,10 +5,6 @@ class Cleaner
         @ary_type = ary_type
     end
 
-    def get_retweeted(retweeted_text)
-        "RT #{retweeted_text}" if retweeted_text
-    end
-
     def modify_tweet_status_str(tweet_text)
         tweet_text.gsub(/(\r\n|\r|\n|\t)/," ").gsub(":","")
     end
@@ -26,12 +22,12 @@ class Cleaner
     end
     private :set_label
 
-    def create_ary_tweet (tweet, text, client, retweeted, place_status, place)
+    def create_ary_tweet (tweet, client, retweeted, place_status, place)
 
         created_at = set_label('created_at', tweet.created_at)
         user_name = set_label('user_name', tweet.user.screen_name)
         user_id = set_label('user_id', tweet.user.id)
-        text = set_label('text', text)
+        text = set_label('text', modify_tweet_status_str(tweet.full_text))
         tweet_id = set_label('tweet_id', tweet.id)
         client = set_label('client', client)
         retweeted_status = set_label('retweeted', retweeted)
