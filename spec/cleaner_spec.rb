@@ -6,14 +6,7 @@ describe Cleaner do
             expect{Cleaner.new}.to raise_error('ary_type needed')
         end
     end
-    describe 'get_retweeted' do
-        it 'はリツイートされていた場合元のツイート本文にRTをつけて返す' do
-            expect(Cleaner.new('simple').get_retweeted('Hello World')).to eq('RT Hello World')
-        end
-        it 'はリツイートされていなければ何もしない' do
-            expect(Cleaner.new('simple').get_retweeted(nil)).to eq(nil)
-        end
-    end
+
 
     describe 'modify_tweet_status_str' do
         it 'は文字列から改行文字とタブと:を削除して返す' do
