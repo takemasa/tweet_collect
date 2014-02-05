@@ -60,12 +60,12 @@ class Cleaner
         created_at = set_label('created_at', tweet.created_at) #ツイート日時
         tweet_id = set_label('tweet_id', tweet.id) #ツイートID
         text = set_label('text', modify_tweet_status_str(tweet.full_text)) #ツイート本文
-        text_url = set_label('text_url', "#{modify_text_urls(tweet.attrs[:entities])}") #ツイートのURL
+        text_url = set_label('text_url', text_urls) #ツイートのURL
         user_name = set_label('user_name', tweet.user.screen_name) #ツイートしたユーザ名
         user_id = set_label('user_id', tweet.user.id) #ユーザID
         user_page = set_label('user_page', "https://twitter.com/intent/user?user_id=#{tweet.user.id}") #ユーザーページのURL
         user_profile = set_label('profile', modify_tweet_status_str(tweet.user.description)) #ユーザのプロフィール
-        prof_url = set_label('prof_url', "#{modify_prof_urls(tweet.attrs[:user][:entities])}") #プロフィール文のURL
+        prof_url = set_label('prof_url', prof_urls) #プロフィール文のURL
         client = set_label('client', client) #ツイート時に使用したクライアント
         place_status = set_label('place_status', place_status) #位置情報の有無
         place = set_label('place_city', place) #位置情報
