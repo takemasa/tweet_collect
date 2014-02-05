@@ -46,10 +46,16 @@ class Cleaner
     end
     private :set_label
 
-    def create_ary_tweet (tweet, client, retweeted, place_status, place)
+    def create_ary_tweet (tweet, client, place_status, place)
         text_urls = modify_text_urls(tweet.attrs[:entities])
         prof_urls = modify_prof_urls(tweet.attrs[:user][:entities])
         url = text_urls.empty? && prof_urls.empty? ? false : true
+
+        if tweet.retweeted_status
+            retweeted, retweeted_username = true, tweet.retweeted_status.user.screen_name
+        else
+            retweeted, retweeted_username = false, nil
+        end
 
         created_at = set_label('created_at', tweet.created_at) #ツイート日時
         tweet_id = set_label('tweet_id', tweet.id) #ツイートID
@@ -69,7 +75,8 @@ class Cleaner
         url_status = set_label('url_status', url) # ツイート情報にURLが含まれているか
         retweeted_status = set_label('retweeted', retweeted) #リツイートであるか
         retweet_count = set_label('retweet_count', tweet.retweet_count) #リツイートされた回数
-        retweeted_user = set_label('retweeted_user', tweet.retweeted_status.user.screen_name) if retweeted #リツイート元のユーザ名
+        retweeted_user = set_label('retweeted_user', retweeted_username) #リツイート元のユーザ名
+
         case @ary_type
         when 'simple'
             ary = [created_at, user_name, text]
