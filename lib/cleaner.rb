@@ -47,6 +47,9 @@ class Cleaner
     private :set_label
 
     def create_ary_tweet (tweet, client, retweeted, place_status, place)
+        text_urls = modify_text_urls(tweet.attrs[:entities])
+        prof_urls = modify_prof_urls(tweet.attrs[:user][:entities])
+        url = text_urls.empty? && prof_urls.empty? ? false : true
 
         created_at = set_label('created_at', tweet.created_at) #ツイート日時
         tweet_id = set_label('tweet_id', tweet.id) #ツイートID
@@ -63,6 +66,7 @@ class Cleaner
         friends_count = set_label('friends_count', tweet.user.friends_count) #フォロー数
         followers_count = set_label('followers_count', tweet.user.followers_count) #フォロワー数
         all_tweet_count = set_label('all_tweet_count', tweet.user.statuses_count) #総ツイート数
+        url_status = set_label('url_status', url) # ツイート情報にURLが含まれているか
         retweeted_status = set_label('retweeted', retweeted) #リツイートであるか
         retweet_count = set_label('retweet_count', tweet.retweet_count) #リツイートされた回数
         retweeted_user = set_label('retweeted_user', tweet.retweeted_status.user.screen_name) if retweeted #リツイート元のユーザ名
@@ -72,7 +76,7 @@ class Cleaner
         when 'numeric'
             ary = [created_at, user_id, tweet_id, retweet_count, friends_count, followers_count, all_tweet_count]
         when 'all'
-            ary = [created_at, tweet_id, text, text_url, user_name, user_id, user_page, user_profile, prof_url, client, place_status, place, friends_count, followers_count, all_tweet_count, retweeted_status, retweet_count, retweeted_user]
+            ary = [created_at, tweet_id, text, text_url, user_name, user_id, user_page, user_profile, prof_url, client, place_status, place, friends_count, followers_count, all_tweet_count, url_status, retweeted_status, retweet_count, retweeted_user]
         end
         ary
     end
