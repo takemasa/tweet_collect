@@ -72,6 +72,7 @@ class Cleaner
         friends_count = set_label('friends_count', tweet.user.friends_count) #フォロー数
         followers_count = set_label('followers_count', tweet.user.followers_count) #フォロワー数
         all_tweet_count = set_label('all_tweet_count', tweet.user.statuses_count) #総ツイート数
+        listed_count = set_label('listed_count', tweet.user.listed_count) #リストに加えられている数
         url_status = set_label('url_status', url) # ツイート情報にURLが含まれているか
         retweeted_status = set_label('retweeted', retweeted) #リツイートであるか
         retweet_count = set_label('retweet_count', tweet.retweet_count) #リツイートされた回数
@@ -83,7 +84,7 @@ class Cleaner
         when 'numeric'
             ary = [created_at, user_id, tweet_id, retweet_count, friends_count, followers_count, all_tweet_count]
         when 'all'
-            ary = [created_at, tweet_id, text, text_url, user_name, user_id, user_page, user_profile, prof_url, client, place_status, place, friends_count, followers_count, all_tweet_count, url_status, retweeted_status, retweet_count, retweeted_user]
+            ary = [created_at, tweet_id, text, text_url, user_name, user_id, user_page, user_profile, prof_url, client, place_status, place, friends_count, followers_count, all_tweet_count, listed_count, url_status, retweeted_status, retweet_count, retweeted_user]
         end
         ary
     end
