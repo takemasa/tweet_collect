@@ -17,20 +17,7 @@ class Cleaner
         place ? place.gsub(", ","\tplace_prefecture:") : "\tplace_prefecture:"
     end
 
-    def modify_prof_urls(tweet_attrs)
-        urls = []
-        # if tweet_attrs &&
-        if tweet_attrs[:description] && !tweet_attrs[:description][:urls].empty?
-            tweet_attrs[:description][:urls].each do |url|
-                urls << url[:expanded_url]
-            end
-        else
-            urls << nil
-        end
-        urls.join(' , ')
-    end
-
-    def modify_text_urls(tweet_attrs)
+    def modify_urls(tweet_attrs)
         urls = []
         if !tweet_attrs[:urls].empty?
             tweet_attrs[:urls].each do |url|
@@ -47,9 +34,9 @@ class Cleaner
     private :set_label
 
     def create_ary_tweet (tweet, client, place_status, place)
-        text_urls = modify_text_urls(tweet.attrs[:entities])
-        prof_urls = modify_prof_urls(tweet.attrs[:user][:entities])
         url = text_urls.empty? && prof_urls.empty? ? false : true
+        text_urls = modify_urls(tweet.attrs[:entities])
+        prof_urls = modify_urls(tweet.attrs[:user][:entities][:description])
 
         if tweet.retweeted_status
             retweeted, retweeted_username = true, tweet.retweeted_status.user.screen_name
