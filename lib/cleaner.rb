@@ -37,6 +37,7 @@ class Cleaner
         url = text_urls.empty? && prof_urls.empty? ? false : true
         text_urls = modify_urls(tweet.attrs[:entities])
         prof_urls = modify_urls(tweet.attrs[:user][:entities][:description])
+        home_urls = tweet.attrs[:user][:entities][:url] ? modify_urls(tweet.attrs[:user][:entities][:url]) : '' # ホームページのリンクが存在しない時は[:url]のハッシュが作られないため、空の配列を代入する
 
         if tweet.retweeted_status
             retweeted, retweeted_username = true, tweet.retweeted_status.user.screen_name
@@ -53,6 +54,7 @@ class Cleaner
         user_page = set_label('user_page', "https://twitter.com/intent/user?user_id=#{tweet.user.id}") #ユーザーページのURL
         user_profile = set_label('profile', modify_tweet_status_str(tweet.user.description)) #ユーザのプロフィール
         prof_url = set_label('prof_url', prof_urls) #プロフィール文のURL
+        home_url = set_label('home_url', home_urls) #プロフィールのURL欄
         client = set_label('client', client) #ツイート時に使用したクライアント
         place_status = set_label('place_status', place_status) #位置情報の有無
         place = set_label('place_city', place) #位置情報
@@ -71,7 +73,7 @@ class Cleaner
         when 'numeric'
             ary = [created_at, user_id, tweet_id, retweet_count, friends_count, followers_count, all_tweet_count]
         when 'all'
-            ary = [created_at, tweet_id, text, text_url, user_name, user_id, user_page, user_profile, prof_url, client, place_status, place, friends_count, followers_count, all_tweet_count, listed_count, url_status, retweeted_status, retweet_count, retweeted_user]
+            ary = [created_at, tweet_id, text, text_url, user_name, user_id, user_page, user_profile, prof_url, home_url, client, place_status, place, friends_count, followers_count, all_tweet_count, listed_count, url_status, retweeted_status, retweet_count, retweeted_user]
         end
         ary
     end
