@@ -12,6 +12,7 @@ class Compressor
         @old_files.each{|filename|
             file = File.open(filename).read
                 Zlib::GzipWriter.open("#{filename}.gz") do |gz| gz.write file end
+                sleep(3)
         }
     end
 

@@ -10,4 +10,5 @@ compressor.compress_file
 
 compressor.get_gzip_list.each{|gzfile|
     Uploader.new(gzfile).upload(client, gzfile)
+    sleep(3)
 }
