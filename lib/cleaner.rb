@@ -34,10 +34,10 @@ class Cleaner
     private :set_label
 
     def create_ary_tweet (tweet, client, place_status, place)
-        url = text_urls.empty? && prof_urls.empty? ? false : true
         text_urls = modify_urls(tweet.attrs[:entities])
         prof_urls = modify_urls(tweet.attrs[:user][:entities][:description])
         home_urls = tweet.attrs[:user][:entities][:url] ? modify_urls(tweet.attrs[:user][:entities][:url]) : '' # ホームページのリンクが存在しない時は[:url]のハッシュが作られないため、空の配列を代入する
+        url = prof_urls.empty? && home_urls.empty? ? false : true
 
         if tweet.retweeted_status
             retweeted, retweeted_username = true, tweet.retweeted_status.user.screen_name
