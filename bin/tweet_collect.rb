@@ -17,7 +17,6 @@ ary_all_tweets = []
 ary_id = []
 5.times do
     tweet_id = nil
-    tweet_text = nil
     # ツイート取得を実行
     result = collector.search_tweet(client)
     # 出力先をツイートとエラーのどちらにするかを判断
