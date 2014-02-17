@@ -6,11 +6,11 @@ class Cleaner
     end
 
     def modify_tweet_status_str(tweet_text)
-        tweet_text.gsub(/(\r\n|\r|\n|\t)/," ").gsub(":","")
+        tweet_text.gsub(/(\r\n|\r|\n|\t)/," ").gsub(":"," ").gsub(","," ")
     end
 
     def modify_twitter_client_str(twitter_client)
-        twitter_client.gsub(/<.*">/,"").gsub(/<\/a>/,"").gsub(/(\r\n|\r|\n|\t)/,"")
+        twitter_client.gsub(/<.*">/,"").gsub(/<\/a>/,"").gsub(/(\r\n|\r|\n|\t)/,"").gsub(","," ")
     end
 
     def modify_place_str(place = nil)
