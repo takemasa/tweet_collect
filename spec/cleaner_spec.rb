@@ -9,8 +9,8 @@ describe Cleaner do
 
 
     describe 'modify_tweet_status_str' do
-        it 'は文字列から改行文字とタブと:を削除して返す' do
-            expect(Cleaner.new('simple').modify_tweet_status_str(":Hello\nworld\t")).to eq("Hello world ")
+        it 'は文字列から改行文字とタブと:と,を削除して返す' do
+            expect(Cleaner.new('simple').modify_tweet_status_str(":Hello,\nworld\t")).to eq(" Hello  world ")
         end
     end
 
