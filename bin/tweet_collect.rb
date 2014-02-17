@@ -17,7 +17,6 @@ ary_all_tweets = []
 ary_id = []
 5.times do
     tweet_id = nil
-    # ツイート取得を実行
     result = collector.search_tweet(client)
     # 出力先をツイートとエラーのどちらにするかを判断
     result.class == Array ? tweets = result : ary_error << result
@@ -27,14 +26,11 @@ ary_id = []
         tweet_id = tweet.id
          # ツイートが取得できていればそのidをインスタンス変数since_idに代入
         collector.since_id = tweet_id if tweet_id
-        # ツイートの文字列処理
         tweet_place_status = tweet.place ? true : false
         tweet_place = tweet.place ? cleaner.modify_place_str(tweet.place.full_name) : cleaner.modify_place_str
         # ツイート要素からtweet配列を作成
-        # 配列を\tで結合
         ary_tweet = cleaner.create_ary_tweet(tweet, tweet_place_status, tweet_place)
         tweet = cleaner.join_tweet_status(ary_tweet)
-        # 結合したツイートをall_tweets配列に格納
         ary_all_tweets << tweet
     }
     # ツイートが1件でも取得できていればそのidをid配列に格納
