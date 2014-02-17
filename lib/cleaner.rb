@@ -33,7 +33,7 @@ class Cleaner
     end
     private :set_label
 
-    def create_ary_tweet (tweet, client, place_status, place)
+    def create_ary_tweet (tweet, place_status, place)
         text_urls = modify_urls(tweet.attrs[:entities])
         prof_urls = modify_urls(tweet.attrs[:user][:entities][:description])
         home_urls = tweet.attrs[:user][:entities][:url] ? modify_urls(tweet.attrs[:user][:entities][:url]) : '' # ホームページのリンクが存在しない時は[:url]のハッシュが作られないため、空の配列を代入する
@@ -55,7 +55,7 @@ class Cleaner
         user_profile = set_label('profile', modify_tweet_status_str(tweet.user.description)) #ユーザのプロフィール
         prof_url = set_label('prof_url', prof_urls) #プロフィール文のURL
         home_url = set_label('home_url', home_urls) #プロフィールのURL欄
-        client = set_label('client', client) #ツイート時に使用したクライアント
+        client = set_label('client', modify_twitter_client_str(tweet.source)) #ツイート時に使用したクライアント
         place_status = set_label('place_status', place_status) #位置情報の有無
         place = set_label('place_city', place) #位置情報
         friends_count = set_label('friends_count', tweet.user.friends_count) #フォロー数
