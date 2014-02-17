@@ -1,5 +1,14 @@
 class GetTweetFromS3
 
+    def avoid_duplication(s3filename)
+        exist = false
+        Dir.glob("./refine_search/#{File.dirname(s3filename)}/*"){|all_file|
+            File.basename(all_file).include?(File.basename(s3filename)) ? exist = true : exist = false
+            break if exist
+        }
+        exist
+    end
+
     def download(client, s3_filename)
         bucket = client.buckets["dsb-twitter"]
         bucket.objects.with_prefix(s3_filename).each do |filename|
