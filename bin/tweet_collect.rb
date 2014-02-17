@@ -15,6 +15,11 @@ ary_error = []
 tweets = []
 ary_all_tweets = []
 ary_id = []
+
+# 同時刻の多重起動を防ぐため取得の実行前にsleep
+sleep_time = account_id.to_i % 9
+sleep(sleep_time)
+
 5.times do
     tweet_id = nil
     result = collector.search_tweet(client)
@@ -42,8 +47,7 @@ ary_id = []
         collector.clear_idfile
         writer.output_id(ary_id)
     end
-    sleep_time = [*7..12].sample
-    sleep(sleep_time)
+    sleep(8)
     ary_all_tweets = []
     ary_id = []
     ary_error = []
