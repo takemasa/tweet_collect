@@ -12,7 +12,6 @@ client = Authenticater.new(account_id).get_twitter_client
 collector = Collector.new(keyword, result_type, lang)
 cleaner = Cleaner.new(ary_type)
 ary_error = []
-tweets = []
 ary_all_tweets = []
 ary_id = []
 
@@ -28,13 +27,11 @@ sleep(sleep_time)
 
     tweets.each {|tweet|
         ary_tweet = []
-        tweet_id = tweet.id
+        tweet_id = tweet[:id]
          # ツイートが取得できていればそのidをインスタンス変数since_idに代入
         collector.since_id = tweet_id if tweet_id
-        tweet_place_status = tweet.place ? true : false
-        tweet_place = tweet.place ? cleaner.modify_place_str(tweet.place.full_name) : cleaner.modify_place_str
         # ツイート要素からtweet配列を作成
-        ary_tweet = cleaner.create_ary_tweet(tweet, tweet_place_status, tweet_place)
+        ary_tweet = cleaner.create_ary_tweet(tweet)
         tweet = cleaner.join_tweet_status(ary_tweet)
         ary_all_tweets << tweet
     }

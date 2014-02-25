@@ -6,34 +6,35 @@ class Cleaner
     end
 
     def modify_tweet_status_str(tweet_text)
-        tweet_text.gsub(/(\r\n|\r|\n|\t)/," ").gsub(":"," ").gsub(","," ")
+        tweet_text.gsub(/(\r\n|\r|\n|\t|:|,)/," ")
     end
 
     def modify_twitter_client_str(twitter_client)
-        twitter_client.gsub(/<.*">/,"").gsub(/<\/a>/,"").gsub(/(\r\n|\r|\n|\t)/,"").gsub(","," ")
+        twitter_client.gsub(/(<.*">|<\/a>|\r\n|\r|\n|\t)/,"").gsub(","," ")
     end
 
     def modify_place_str(place = nil)
         place ? place.gsub(", ","\tplace_prefecture:") : "\tplace_prefecture:"
     end
 
-    def modify_urls(tweet_attrs)
+    def modify_urls(tweet)
         urls = []
-        if !tweet_attrs[:urls].empty?
-            tweet_attrs[:urls].each do |url|
+        if tweet[:urls].empty?
+            urls << nil
+        else
+            tweet[:urls].each do |url|
                 urls << url[:expanded_url]
             end
-        else
-            urls << nil
         end
         urls.join(' , ')
     end
+
     def set_label(label, tweet_status)
         "#{label}:#{tweet_status}"
     end
     private :set_label
 
-    def create_ary_tweet (tweet, place_status, place)
+    def create_ary_tweet (tweet)
         text_urls = modify_urls(tweet.attrs[:entities])
         prof_urls = modify_urls(tweet.attrs[:user][:entities][:description])
         home_urls = tweet.attrs[:user][:entities][:url] ? modify_urls(tweet.attrs[:user][:entities][:url]) : '' # ホームページのリンクが存在しない時は[:url]のハッシュが作られないため、空の配列を代入する
@@ -43,6 +44,14 @@ class Cleaner
             retweeted, retweeted_username = true, tweet.retweeted_status.user.screen_name
         else
             retweeted, retweeted_username = false, nil
+        end
+
+        if tweet.place
+            tweet_place_status = true
+            tweet_place = modify_place_str(tweet.place.full_name)
+        else
+            tweet_place_status = false
+            tweet_place = modify_place_str
         end
 
         created_at = set_label('created_at', tweet.created_at) #ツイート日時
@@ -56,8 +65,8 @@ class Cleaner
         prof_url = set_label('prof_url', prof_urls) #プロフィール文のURL
         home_url = set_label('home_url', home_urls) #プロフィールのURL欄
         client = set_label('client', modify_twitter_client_str(tweet.source)) #ツイート時に使用したクライアント
-        place_status = set_label('place_status', place_status) #位置情報の有無
-        place = set_label('place_city', place) #位置情報
+        place_status = set_label('place_status', tweet_place_status) #位置情報の有無
+        place = set_label('place_city', tweet_place) #位置情報
         friends_count = set_label('friends_count', tweet.user.friends_count) #フォロー数
         followers_count = set_label('followers_count', tweet.user.followers_count) #フォロワー数
         all_tweet_count = set_label('all_tweet_count', tweet.user.statuses_count) #総ツイート数
@@ -80,10 +89,5 @@ class Cleaner
 
     def join_tweet_status(tweet)
         tweet.join("\t")
-    end
-
-    def add_tweets_ary(joined_tweet)
-        tweets_ary = []
-        tweets_ary << joined_tweet
     end
 end
