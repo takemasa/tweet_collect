@@ -1,9 +1,8 @@
 class Writer
 
     public
-    def initialize(keyword, requested_output_name = nil)
+    def initialize(keyword)
         @keyword = keyword
-        @requested_output_name = requested_output_name
         @output_name = get_output_name
         @day = Time.now
         @wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
@@ -12,13 +11,7 @@ class Writer
 
     def get_output_name
         keyword_exchange = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/twkeyword.yaml'))
-        if @requested_output_name && @requested_output_name != keyword_exchange[@keyword]
-            raise "twkeyword.yaml written \n#{keyword_exchange[@keyword]}\n"
-        elsif keyword_exchange[@keyword]
-            keyword_exchange[@keyword]
-        else
-            raise "twkeyword.yaml has no keyword \'#{@keyword}\'"
-        end
+        keyword_exchange[@keyword] ? keyword_exchange[@keyword] : raise("twkeyword.yaml has no keyword \'#{@keyword}\'")
     end
 
     def make_dir

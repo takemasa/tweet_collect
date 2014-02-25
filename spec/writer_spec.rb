@@ -14,14 +14,8 @@ describe Writer do
     end
 
     describe 'get_output_name' do
-        it 'はyamlファイルからkeywordに対応したディレクトリ名と引数output_nameが一致したときoutput_nameを返す' do
-            expect(Writer.new('テスト','test').output_name).to eq('test')
-        end
         it 'はyamlファイルからkeywordに対応したディレクトリ名を返す' do
             expect(Writer.new('テスト').output_name).to eq('test')
-        end
-        it 'は与えられたoutput_nameがyamlファイルの記述と異なる場合にエラー' do
-            expect{Writer.new('テスト','tets').output_name}.to raise_error("twkeyword.yaml written \ntest\n")
         end
         it 'はyamlファイルにkeywordと対応したディレクトリ名がないとき、エラー' do
             expect{Writer.new('トテス').output_name}.to raise_error("twkeyword.yaml has no keyword \'トテス\'")
