@@ -51,7 +51,8 @@ class Writer
     end
 
     def create_error_filename
-        "error/err_#{@day.strftime("%Y-%m-%d")}-#{@wdays[@day.wday]}_#{@output_name}.txt"
+        "error/err_#{@day.strftime("%Y-%m-%d")}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
+    end
     end
 
 

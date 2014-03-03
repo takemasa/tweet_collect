@@ -11,7 +11,7 @@ writer.make_dir
 client = Authenticater.new(account_id).get_twitter_client
 collector = Collector.new(keyword, result_type, lang)
 cleaner = Cleaner.new(ary_type)
-ary_error = []
+error_message = nil
 ary_all_tweets = []
 ary_id = []
 
@@ -19,9 +19,11 @@ ary_id = []
 sleep_time = account_id.to_i % 9
 sleep(sleep_time)
 
+execute_time = Time.now
 5.times do
     tweet_id = nil
     result = collector.search_tweet(client)
+        result = collector.search_tweet(client, execute_time)
     # 出力先をツイートとエラーのどちらにするかを判断
     result.class == Array ? tweets = result : ary_error << result
 
@@ -39,14 +41,17 @@ sleep(sleep_time)
     ary_id << tweet_id if tweet_id
     # ファイルへの出力処理
     writer.output_tweet(ary_all_tweets)
-    writer.output_error(ary_error) unless ary_error.empty?
     unless ary_id.empty?
         collector.clear_idfile
         writer.output_id(ary_id)
+            unless ary_id.empty?
+                collector.clear_idfile
+                writer.output_id(ary_id)
+            end
+        writer.output_error(error_message) unless error_message.nil?
     end
     sleep(8)
     ary_all_tweets = []
     ary_id = []
-    ary_error = []
+    error_message = nil
 end
-
