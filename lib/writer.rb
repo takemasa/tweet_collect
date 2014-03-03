@@ -64,7 +64,7 @@ class Writer
     end
 
     def create_log_filename
-        "log/#{@day.strftime("%Y-%m-%d")}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
+        "log/log_#{@day.strftime("%Y-%m-%d")}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
     end
 
 
