@@ -18,6 +18,7 @@ class Writer
         FileUtils::mkdir_p("./tweet/data/#{@output_name}/#{@day.year}/#{@day.strftime("%m")}") unless FileTest.exist?("./tweet/data/#{@output_name}/#{@day.year}/#{@day.strftime("%m")}")
         FileUtils::mkdir_p("./tweet/id") unless FileTest.exist?("./tweet/id}")
         FileUtils::mkdir_p("./tweet/error") unless FileTest.exist?("./tweet/error}")
+        FileUtils::mkdir_p("./tweet/log") unless FileTest.exist?("./tweet/log}")
     end
 
     def output_tweet(tweet)
@@ -41,6 +42,14 @@ class Writer
         }
     end
 
+    def output_log(log_ary)
+        log_filename = create_log_filename
+        log_ary ? sum_ary = log_ary.compact.inject{|sum,n| sum+n} : sum_ary = 0
+        File.open("./tweet/#{log_filename}",'a+'){|tweet|
+            tweet.puts "execute_time:#{@day}\ttimes:#{log_ary.compact.count}\ttweets:#{sum_ary}"
+        }
+    end
+
     def create_id_filename
         "id/#{@output_name}.txt"
     end
@@ -53,6 +62,9 @@ class Writer
     def create_error_filename
         "error/err_#{@day.strftime("%Y-%m-%d")}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
     end
+
+    def create_log_filename
+        "log/#{@day.strftime("%Y-%m-%d")}-#{@wdays[@day.wday]}_#{@output_name}.ltsv"
     end
 
 
