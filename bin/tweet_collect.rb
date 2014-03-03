@@ -18,15 +18,12 @@ ary_id = []
 # 同時刻の多重起動を防ぐため取得の実行前にsleep
 sleep_time = account_id.to_i % 9
 sleep(sleep_time)
-
 execute_time = Time.now
 5.times do
     tweet_id = nil
-    result = collector.search_tweet(client)
+    result = nil
         result = collector.search_tweet(client, execute_time)
     # 出力先をツイートとエラーのどちらにするかを判断
-    result.class == Array ? tweets = result : ary_error << result
-
     tweets.each {|tweet|
         ary_tweet = []
         tweet_id = tweet[:id]
@@ -40,14 +37,12 @@ execute_time = Time.now
     # ツイートが1件でも取得できていればそのidをid配列に格納
     ary_id << tweet_id if tweet_id
     # ファイルへの出力処理
-    writer.output_tweet(ary_all_tweets)
-    unless ary_id.empty?
-        collector.clear_idfile
-        writer.output_id(ary_id)
+            writer.output_tweet(ary_all_tweets)
             unless ary_id.empty?
                 collector.clear_idfile
                 writer.output_id(ary_id)
             end
+        end
         writer.output_error(error_message) unless error_message.nil?
     end
     sleep(8)

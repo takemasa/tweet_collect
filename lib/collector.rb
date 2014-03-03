@@ -6,7 +6,7 @@ class Collector
 
     def initialize(keyword, result_type = "recent", lang = 'ja')
         @keyword = keyword
-        @id_filename = Writer.new(keyword).create_id_filename # requireしなくてもapp.rbで書けば呼べる
+        @id_filename = Writer.new(keyword).create_id_filename
         @since_id = get_since_id
         @lang = lang
         @result_type = result_type
@@ -25,19 +25,13 @@ class Collector
         File.open("./tweet/#{@id_filename}",'w')
     end
 
-    def search_tweet(client) # searchによって取得したTwitter::Tweetクラスのオブジェクトを100件返す
+    def search_tweet(client, execute_time) # searchによって取得したTwitter::Tweetクラスのオブジェクトを100件返す
         ary_tweets = []
         client.search(@keyword, :count => 100, :result_type => @result_type, :since_id => @since_id, :lang => @lang).results.reverse.each do |tweet|
             ary_tweets << tweet
         end
         ary_tweets
-        rescue Twitter::Error => e
-            Writer.new(@keyword).output_error(err_message = "error_time:#{Time.now}\tclass:#{e.class}\tmessage:#{e.message}")
-            if e.class == Twitter::Error::TooManyRequests || Twitter::Error::Unauthorized
-                raise err_message
-            else
-                sleep(3)
-                retry
-            end
+        rescue => e
+            return err_message = "error_time:#{Time.now}\texecute_time:#{execute_time}\tclass:#{e.class}\tmessage:#{e.message}"
     end
 end
