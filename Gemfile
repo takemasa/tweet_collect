@@ -8,3 +8,6 @@ gem "rspec"
 gem "guard-rspec"
 gem "fuubar"
 gem 'parallel'
+gem 'spreadsheet'
+gem 'ruby-prof'
+gem 'ltsv'
