@@ -24,8 +24,8 @@ describe Collector do
 
             m_client.should_receive(:search).with('テスト', :count=>100, :result_type => "recent", :since_id => 0, :lang => "ja").and_return(m_search)
             m_search.should_receive(:results).and_return(['results'])
-
-            expect(Collector.new('テスト').search_tweet(m_client)).to eq(['results'])
+            date = Time.now
+            expect(Collector.new('テスト').search_tweet(m_client, date)).to eq(['results'])
         end
     end
 end

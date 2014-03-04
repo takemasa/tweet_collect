@@ -54,7 +54,7 @@ describe Writer do
             day = Time.now
             wdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
             Writer.new('テスト').output_error(['error'])
-            expect(FileTest.exist?("./tweet/error/err_#{day.strftime("%Y-%m-%d")}-#{wdays[day.wday]}_test.txt")).to eq(true)
+            expect(FileTest.exist?("./tweet/error/err_#{day.strftime("%Y-%m-%d")}-#{wdays[day.wday]}_test.ltsv")).to eq(true)
         end
     end
 
