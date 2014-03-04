@@ -30,9 +30,11 @@ describe Cleaner do
         end
     end
 
-    describe 'add_tweets_ary' do
-        it 'は各ツイートを1つの配列にして返す' do
-            expect(Cleaner.new('simple').add_tweets_ary("tweet")).to eq(["tweet"])
+    describe 'set_label' do
+        it 'は配列をハッシュに格納' do
+            labels = ['created_at', 'tweet_id', 'text', 'url', 'name', 'user_id', 'home_url', 'profile', 'prof_url']
+            tweets_status = ["2014-03-04 16:58:40 +0900", '000000001', 'text', '', 'me', '001', '', 'profile', '']
+            expect(Cleaner.new('simple').set_label(labels, tweets_status)).to eq({"created_at"=>"created_at:2014-03-04 16:58:40 +0900", "tweet_id"=>"tweet_id:000000001", "text"=>"text:text", "url"=>"url:", "name"=>"name:me", "user_id"=>"user_id:001", "home_url"=>"home_url:", "profile"=>"profile:profile", "prof_url"=>"prof_url:"})
         end
     end
 end

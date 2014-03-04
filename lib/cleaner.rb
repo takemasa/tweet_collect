@@ -13,76 +13,96 @@ class Cleaner
         twitter_client.gsub(/(<.*">|<\/a>|\r\n|\r|\n|\t)/,"").gsub(","," ")
     end
 
-    def modify_place_str(place = nil)
-        place ? place.gsub(", ","\tplace_prefecture:") : "\tplace_prefecture:"
+    def modify_place(place = nil)
+        place ? [true, place.full_name.gsub(", ","\tplace_prefecture:")] : [false, "\tplace_prefecture:"]
     end
 
     def modify_urls(tweet)
         urls = []
-        if tweet[:urls].empty?
-            urls << nil
-        else
-            tweet[:urls].each do |url|
-                urls << url[:expanded_url]
-            end
+        tweet[:urls].each do |url|
+            urls << url[:expanded_url]
         end
         urls.join(' , ')
     end
 
-    def set_label(label, tweet_status)
-        "#{label}:#{tweet_status}"
+    def retweeted_status(retweeted)
+        retweeted ? [true, retweeted.user.screen_name] : [false, nil]
     end
-    private :set_label
+
+    def set_label(labels, tweet_status)
+        lists = {}
+        labels.each_with_index do |label, i|
+            lists[label] = "#{label}:#{tweet_status[i]}"
+        end
+        lists
+    end
 
     def create_ary_tweet (tweet)
-        text_urls = modify_urls(tweet.attrs[:entities])
-        prof_urls = modify_urls(tweet.attrs[:user][:entities][:description])
-        home_urls = tweet.attrs[:user][:entities][:url] ? modify_urls(tweet.attrs[:user][:entities][:url]) : '' # ホームページのリンクが存在しない時は[:url]のハッシュが作られないため、空の配列を代入する
-        url = prof_urls.empty? && home_urls.empty? ? false : true
+        text_urls = tweet.attrs[:entities][:urls].empty? ? nil : modify_urls(tweet.attrs[:entities])
+        prof_urls = tweet.attrs[:user][:entities][:description][:urls].empty? ? nil : modify_urls(tweet.attrs[:user][:entities][:description])
+        home_urls = tweet.attrs[:user][:entities][:url] ? modify_urls(tweet.attrs[:user][:entities][:url]) : nil# ホームページのリンクが存在しない時は[:url]のハッシュが作られないため、空の配列を代入する
+        url = prof_urls && home_urls ? false : true
+        retweet = retweeted_status(tweet.retweeted_status)
+        tweet_place = modify_place(tweet.place)
 
-        if tweet.retweeted_status
-            retweeted, retweeted_username = true, tweet.retweeted_status.user.screen_name
-        else
-            retweeted, retweeted_username = false, nil
-        end
+        labels = [
+            'created_at',
+            'tweet_id',
+            'text',
+            'text_url',
+            'user_name',
+            'user_id',
+            'user_page',
+            'profile',
+            'prof_url',
+            'home_url',
+            'client',
+            'place_status',
+            'place',
+            'friends_count',
+            'followers_count',
+            'all_tweet_count',
+            'listed_count',
+            'url_status',
+            'retweeted_status',
+            'retweet_count',
+            'retweeted_user'
+        ]
 
-        if tweet.place
-            tweet_place_status = true
-            tweet_place = modify_place_str(tweet.place.full_name)
-        else
-            tweet_place_status = false
-            tweet_place = modify_place_str
-        end
 
-        created_at = set_label('created_at', tweet.created_at) #ツイート日時
-        tweet_id = set_label('tweet_id', tweet.id) #ツイートID
-        text = set_label('text', modify_tweet_status_str(tweet.full_text)) #ツイート本文
-        text_url = set_label('text_url', text_urls) #ツイートのURL
-        user_name = set_label('user_name', tweet.user.screen_name) #ツイートしたユーザ名
-        user_id = set_label('user_id', tweet.user.id) #ユーザID
-        user_page = set_label('user_page', "https://twitter.com/intent/user?user_id=#{tweet.user.id}") #ユーザーページのURL
-        user_profile = set_label('profile', modify_tweet_status_str(tweet.user.description)) #ユーザのプロフィール
-        prof_url = set_label('prof_url', prof_urls) #プロフィール文のURL
-        home_url = set_label('home_url', home_urls) #プロフィールのURL欄
-        client = set_label('client', modify_twitter_client_str(tweet.source)) #ツイート時に使用したクライアント
-        place_status = set_label('place_status', tweet_place_status) #位置情報の有無
-        place = set_label('place_city', tweet_place) #位置情報
-        friends_count = set_label('friends_count', tweet.user.friends_count) #フォロー数
-        followers_count = set_label('followers_count', tweet.user.followers_count) #フォロワー数
-        all_tweet_count = set_label('all_tweet_count', tweet.user.statuses_count) #総ツイート数
-        listed_count = set_label('listed_count', tweet.user.listed_count) #リストに加えられている数
-        url_status = set_label('url_status', url) # ツイート情報にURLが含まれているか
-        retweeted_status = set_label('retweeted', retweeted) #リツイートであるか
-        retweet_count = set_label('retweet_count', tweet.retweet_count) #リツイートされた回数
-        retweeted_user = set_label('retweeted_user', retweeted_username) #リツイート元のユーザ名
+        tweet_status = [
+            tweet.created_at,
+            tweet.id, #ツイートID
+            modify_tweet_status_str(tweet.full_text), #ツイート本文
+            text_urls, #ツイートのURL
+            tweet.user.screen_name, #ツイートしたユーザ名
+            tweet.user.id, #ユーザID
+            "https://twitter.com/intent/user?user_id=, #{tweet.user.id}", #ユーザーページのURL
+            modify_tweet_status_str(tweet.user.description), #ユーザのプロフィール
+            prof_urls, #プロフィール文のURL
+            home_urls, #プロフィールのURL欄
+            modify_twitter_client_str(tweet.source), #ツイート時に使用したクライアント
+            tweet_place[0], #位置情報の有無
+            tweet_place[1], #位置情報
+            tweet.user.friends_count, #フォロー数
+            tweet.user.followers_count, #フォロワー数
+            tweet.user.statuses_count, #総ツイート数
+            tweet.user.listed_count, #リストに加えられている数
+            url, # ツイート情報にURLが含まれているか
+            retweet[0], #リツイートであるか
+            tweet.retweet_count, #リツイートされた回数
+            retweet[1]#リツイート元のユーザ名
+        ]
+
+        tweet = set_label(labels, tweet_status)
 
         case @ary_type
         when 'simple'
-            ary = [created_at, user_name, text]
+            ary = [tweet['created_at'], tweet['user_name'], tweet['text']]
         when 'numeric'
-            ary = [created_at, user_id, tweet_id, retweet_count, friends_count, followers_count, all_tweet_count]
+            ary = [tweet['created_at'], tweet['user_id'], tweet['tweet_id'], tweet['retweet_count'], tweet['friends_count'], tweet['followers_count'], tweet['all_tweet_count']]
         when 'all'
-            ary = [created_at, tweet_id, text, text_url, user_name, user_id, user_page, user_profile, prof_url, home_url, client, place_status, place, friends_count, followers_count, all_tweet_count, listed_count, url_status, retweeted_status, retweet_count, retweeted_user]
+            ary = [tweet['created_at'], tweet['tweet_id'], tweet['text'], tweet['text_url'], tweet['user_name'], tweet['user_id'], tweet['user_page'], tweet['profile'], tweet['prof_url'], tweet['home_url'], tweet['client'], tweet['place_status'], tweet['place'], tweet['friends_count'], tweet['followers_count'], tweet['all_tweet_count'], tweet['listed_count'], tweet['url_status'], tweet['retweeted_status'], tweet['retweet_count'], tweet['retweeted_user']]
         end
         ary
     end

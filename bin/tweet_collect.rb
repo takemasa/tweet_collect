@@ -23,7 +23,6 @@ sleep(sleep_time)
 execute_time = Time.now
 5.times do
     tweet_id = nil
-    result = nil
     if length != 0 # 前回実行時の取得数が10件以上か、前回取得を行わなかった場合にのみ次の取得を行う
         result = collector.search_tweet(client, execute_time)
     # 出力先をツイートとエラーのどちらにするかを判断
