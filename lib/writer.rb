@@ -46,7 +46,7 @@ class Writer
         log_filename = create_log_filename
         log_ary ? sum_ary = log_ary.compact.inject{|sum,n| sum+n} : sum_ary = 0
         File.open("./tweet/#{log_filename}",'a+'){|tweet|
-            tweet.puts "execute_time:#{@day}\ttimes:#{log_ary.compact.count}\ttweets:#{sum_ary}\t#{log_ary}"
+            tweet.puts "execute_time:#{@day}\ttimes:#{log_ary.compact.count}\ttweets:#{sum_ary}\tdetail:#{log_ary}"
         }
     end
 
