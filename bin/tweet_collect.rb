@@ -51,7 +51,7 @@ execute_time = Time.now
         end
     end
     writer.output_error(error_message) unless error_message.nil?
-    sleep(8)
+    sleep(10)
     ary_all_tweets = []
     ary_id = []
     error_message = nil
