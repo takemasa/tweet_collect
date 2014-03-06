@@ -1,13 +1,18 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "twitter"
-gem "tweetstream"
-gem "aws-sdk"
-gem "zipruby"
-gem "rspec"
-gem "guard-rspec"
-gem "fuubar"
+gem 'twitter'
+gem 'aws-sdk'
+gem 'zipruby'
 gem 'parallel'
-gem 'spreadsheet'
-gem 'ruby-prof'
-gem 'ltsv'
+
+group :report do
+    gem 'spreadsheet'
+    gem 'ltsv'
+end
+
+group :test do
+    gem 'rspec'
+    gem 'guard-rspec'
+    gem 'fuubar'
+    gem 'ruby-prof'
+end
