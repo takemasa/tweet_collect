@@ -77,7 +77,7 @@ class Cleaner
             text_urls, #ツイートのURL
             tweet.user.screen_name, #ツイートしたユーザ名
             tweet.user.id, #ユーザID
-            "https://twitter.com/intent/user?user_id=, #{tweet.user.id}", #ユーザーページのURL
+            "https://twitter.com/intent/user?user_id=#{tweet.user.id}", #ユーザーページのURL
             modify_tweet_status_str(tweet.user.description), #ユーザのプロフィール
             prof_urls, #プロフィール文のURL
             home_urls, #プロフィールのURL欄
