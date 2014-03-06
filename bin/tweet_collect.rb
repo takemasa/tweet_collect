@@ -2,8 +2,10 @@ require_relative '../lib/collector.rb'
 require_relative '../lib/authenticater.rb'
 require_relative '../lib/writer.rb'
 require_relative '../lib/cleaner.rb'
+Dotenv.load
+group = ENV['group'] ? ENV['group'] : :default
 require 'bundler/setup'
-Bundler.require
+Bundler.require(group)
 
 (keyword, account_id, ary_type, result_type, lang) = ARGV
 writer = Writer.new(keyword)
