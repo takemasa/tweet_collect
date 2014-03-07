@@ -48,6 +48,7 @@ class Cleaner
         labels = [
             'created_at',
             'tweet_id',
+            'tweet_page',
             'text',
             'text_url',
             'user_name',
@@ -73,6 +74,7 @@ class Cleaner
         tweet_status = [
             tweet.created_at,
             tweet.id, #ツイートID
+            "https://twitter.com/#{tweet.user.screen_name}/status/#{tweet.id}",
             modify_tweet_status_str(tweet.full_text), #ツイート本文
             text_urls, #ツイートのURL
             tweet.user.screen_name, #ツイートしたユーザ名
@@ -102,7 +104,7 @@ class Cleaner
         when 'numeric'
             ary = [tweet['created_at'], tweet['user_id'], tweet['tweet_id'], tweet['retweet_count'], tweet['friends_count'], tweet['followers_count'], tweet['all_tweet_count']]
         when 'all'
-            ary = [tweet['created_at'], tweet['tweet_id'], tweet['text'], tweet['text_url'], tweet['user_name'], tweet['user_id'], tweet['user_page'], tweet['profile'], tweet['prof_url'], tweet['home_url'], tweet['client'], tweet['place_status'], tweet['place'], tweet['friends_count'], tweet['followers_count'], tweet['all_tweet_count'], tweet['listed_count'], tweet['url_status'], tweet['retweeted_status'], tweet['retweet_count'], tweet['retweeted_user']]
+            ary = [tweet['created_at'], tweet['tweet_id'], tweet['tweet_page'], tweet['text'], tweet['text_url'], tweet['user_name'], tweet['user_id'], tweet['user_page'], tweet['profile'], tweet['prof_url'], tweet['home_url'], tweet['client'], tweet['place_status'], tweet['place'], tweet['friends_count'], tweet['followers_count'], tweet['all_tweet_count'], tweet['listed_count'], tweet['url_status'], tweet['retweeted_status'], tweet['retweet_count'], tweet['retweeted_user']]
         end
         ary
     end
