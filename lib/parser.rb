@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/converter.rb')
 class Parser
 
     def initialize(filenames)
-        @hash_list = quotation(Converter.new(filenames, uniq = true, follower_limit = 0).hash_list)
+        @hash_list = quotation(Converter.new(filenames, uniq = false, follower_limit = 0).hash_list)
         @csv_text = sort
     end
     attr_reader :hash_list
@@ -12,7 +12,7 @@ class Parser
     def quotation(hash_list)
         hash_list.each do |key, value|
             value.each_with_index do |val, i|
-                val = val.gsub('"', '^^').gsub(',','&&') if val
+                val = val.gsub('"', '^^').gsub(',','&&').gsub(/(\r\n|\r|\n|\t|:|,)/," ") if val
                 hash_list[key][i] = "\"#{val}\""
             end
         end
