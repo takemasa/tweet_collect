@@ -11,7 +11,7 @@ class Parser
             else
                 raise 'File not exists'
             end
-            @newfilename = "#{File.basename(filename, ".ltsv")}"
+            @newfilename = "#{File.basename(filename).gsub(".ltsv", "").gsub(".gz", "")}"
             file = filename.include?('.gz') ? Zlib::GzipReader : File
             file.open("./refine_search/#{filename}").each_line do |line|
                 @results << LTSV.parse(line)
