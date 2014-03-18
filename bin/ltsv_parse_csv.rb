@@ -1,4 +1,3 @@
-require_relative '../lib/converter.rb'
 require_relative '../lib/parser.rb'
 require 'bundler/setup'
 Bundler.require(:report)
@@ -11,7 +10,4 @@ while true
     break if convert_filename == "end"
     filenames << convert_filename
 end
-print 'outputfilename?(./refine_search/*)'
-newfilename = STDIN.gets.chomp
-
-Parser.new(filenames).write(newfilename)
+Parser.new(filenames)
