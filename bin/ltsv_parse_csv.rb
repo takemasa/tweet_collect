@@ -3,11 +3,8 @@ require 'bundler/setup'
 Bundler.require(:report)
 
 filenames = []
-puts 'Convert filename?(./refine_search/*)'
-puts 'Input "end"'
-while true
-    convert_filename = STDIN.gets.chomp
-    break if convert_filename == "end"
-    filenames << convert_filename
+Dir.glob("./extract_transform/**/*.ltsv").each do |file|
+    filenames << file
 end
+
 Parser.new(filenames)
