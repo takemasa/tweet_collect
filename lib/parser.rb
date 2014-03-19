@@ -6,14 +6,14 @@ class Parser
         @results = []
         @line_count = 0
         filenames.each do |filename|
-            if FileTest.exist?("./refine_search/#{filename}") == true
+            if FileTest.exist?("./#{filename}") == true
                 puts "read #{filename}"
             else
                 raise 'File not exists'
             end
-            @newfilename = "#{File.basename(filename).gsub(".ltsv", "").gsub(".gz", "")}"
+            @newfilename = "#{filename.gsub(".ltsv", "").gsub(".gz", "")}"
             file = filename.include?('.gz') ? Zlib::GzipReader : File
-            file.open("./refine_search/#{filename}").each_line do |line|
+            file.open("./#{filename}").each_line do |line|
                 @results << LTSV.parse(line)
                 @line_count += 1
                 write if @line_count % 10000 == 0
@@ -29,7 +29,7 @@ class Parser
         @hash_list = quotation(spread)
         @csv_text = sort
         puts "#{@hash_list[:created_at][-1]}: #{@hash_list[:text][-1]}"
-        File.open("./refine_search/#{@newfilename}.csv", 'a+'){ |f| f.puts @csv_text }
+        File.open("./#{@newfilename}.csv", 'a+'){ |f| f.puts @csv_text }
         @results = []
     end
 
