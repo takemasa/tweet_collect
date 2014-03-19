@@ -17,7 +17,7 @@ describe Uploader do
 
     describe 'get_dir' do
         it 'はファイルのアップロード先を返す' do
-            expect(Uploader.new(old_filename).get_dir(old_filename)).to eq("dsb-twitter/test/#{Time.now.year}/#{Time.now.strftime("%m")}")
+            expect(Uploader.new(old_filename, "dsb-twitter").get_dir(old_filename)).to eq("dsb-twitter/test/#{Time.now.year}/#{Time.now.strftime("%m")}")
         end
     end
 
@@ -35,7 +35,7 @@ describe Uploader do
             m_file.should_receive(:[]).and_return(m_upload)
             m_upload.should_receive(:write).with({:file => "dirname"}).and_return(['results'])
 
-            expect(Uploader.new(old_filename).upload(m_buckets, "dirname")).to eq(['results'])
+            expect(Uploader.new(old_filename, "dsb-twitter").upload(m_buckets, "dirname")).to eq(['results'])
         end
     end
 end
