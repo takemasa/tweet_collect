@@ -4,10 +4,10 @@ require_relative '../lib/uploader.rb'
 require 'bundler/setup'
 Bundler.require
 
-bucketname = ARGV[0]
-raise 'bucketname is required' unless bucketname
+dir, extension, bucketname = ARGV
+raise 'Target directory, Extension, Bucketname are required' unless bucketname
 client = Authenticater.new.get_aws_client
-compressor = Compressor.new
+compressor = Compressor.new(dir, extension)
 compressor.compress_file
 
 compressor.get_gzip_list.each{|gzfile|

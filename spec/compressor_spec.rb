@@ -17,20 +17,20 @@ describe Compressor do
 
     describe 'get_old_filename_list' do
         it 'は現在の日付がファイル名に含まれないファイルの一覧を取得' do
-            expect(Compressor.new.old_files).to eq([old_filename])
+            expect(Compressor.new("./tweet/data/test", "ltsv").old_files).to eq([old_filename])
         end
     end
 
     describe 'compress_file' do
         it '受け取ったファイル名に基づいてファイルをgzip圧縮する' do
-            Compressor.new.compress_file
+            Compressor.new("./tweet/data/test", "ltsv").compress_file
             expect(FileTest.exist?("#{old_filename}.gz")).to eq(true)
         end
     end
 
     describe 'get_gzip_list' do
         it 'は存在するgzipファイルを取得' do
-            expect(Compressor.new.get_gzip_list).to eq(["#{old_filename}.gz"])
+            expect(Compressor.new("./tweet/data/test", "ltsv").get_gzip_list).to eq(["#{old_filename}.gz"])
         end
     end
 
