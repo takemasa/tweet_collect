@@ -10,16 +10,16 @@ client = Authenticater.new.get_aws_client
 filepath = GetRefineSearchConfig.new.create_filepath
 files = []
 filepath.each do |file|
-    if GetTweetFromS3.new.avoid_duplication(file)
+    if GetTweetFromS3.new("./refine_search").avoid_duplication(file)
         puts "#{file}*.ltsv exists!"
     else
         puts "#{file}*.ltsv not exists"
     end
-    files << GetTweetFromS3.new.download(client, file) unless GetTweetFromS3.new.avoid_duplication(file)
+    files << GetTweetFromS3.new("./refine_search").download(client, file) unless GetTweetFromS3.new("./refine_search").avoid_duplication(file)
 end
 
 puts ""
 files.each do |f|
     puts "got #{f}" if f
 end
-puts GetTweetFromS3.new.file_exists?(files)
+puts GetTweetFromS3.new("./refine_search").file_exists?(files)
