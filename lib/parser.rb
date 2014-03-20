@@ -19,7 +19,7 @@ class Parser
                 @line_count += 1
                 write if @line_count % 10000 == 0
             end
-            write if @results
+            write unless @results.empty?
         end
         puts @line_count
     end
@@ -57,7 +57,7 @@ class Parser
 
     def sort
         values = @hash_list.values
-        lines = values[0].length
+        values.empty? ? return : lines = values[0].length
         ary = []
         lines.times do |l|
             values.each do |value|
