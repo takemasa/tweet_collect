@@ -1,3 +1,4 @@
+# 実行時引数として、アップロードするファイルの場所、拡張子、アップロード先バケット名の指定が必要
 require_relative '../lib/authenticater.rb'
 require_relative '../lib/compressor.rb'
 require_relative '../lib/uploader.rb'

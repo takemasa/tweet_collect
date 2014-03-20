@@ -4,8 +4,10 @@ Bundler.require
 class Compressor
 
     def initialize(dir, extension)
-        @dir = dir
-        @extension = extension
+        @dir = dir.dup
+        @extension = extension.dup
+        @dir.slice!(-1) if @dir[-1] == '/'
+        @extension.slice!(0) if @extension[0] == '.'
         @old_files = get_old_filename_list
     end
     attr_reader :old_files
