@@ -48,7 +48,7 @@ class Parser
     def quotation(hash_list)
         hash_list.each do |key, value|
             value.each_with_index do |val, i|
-                val = val.gsub('"', '^^').gsub(',','&&').gsub(/(\r\n|\r|\n|\t|,)/," ") if val
+                val = val.gsub('"', ' ').gsub(',',' ').gsub(/(\r\n|\r|\n|\t|,)/," ") if val
                 hash_list[key][i] = "\"#{val}\""
             end
         end
