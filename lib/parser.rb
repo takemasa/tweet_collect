@@ -73,6 +73,6 @@ class Parser
         keyword = nil
         keyword_exchange = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/twkeyword.yaml'))
         keyword_exchange.each{|w| keyword = w[0] if w[1] == tag[1]}
-        return ",#{keyword}\n"
+        return "#{keyword}\n"
     end
 end
