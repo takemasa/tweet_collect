@@ -14,7 +14,7 @@ class Cleaner
     end
 
     def modify_place(place = nil)
-        place ? [true, place.full_name.gsub(", ","\tplace_prefecture:")] : [false, "\tplace_prefecture:"]
+        place ? [true, place.full_name] : [false, ""]
     end
 
     def modify_urls(tweet)
