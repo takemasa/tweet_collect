@@ -20,7 +20,7 @@ class Compressor
         }
     end
 
-    def delete_old_ltsv
+    def delete_old_files
         @old_files.each{|of|
             File.delete(of)
         }
