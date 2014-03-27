@@ -35,9 +35,13 @@ dir, extension, bucketname = "./extract_transform", "csv", "dsb-twitter-csv"
 compressor = Compressor.new(dir, extension)
 compressor.compress_file
 
-compressor.get_gzip_list.each{|gzfile| Uploader.new(gzfile, bucketname).upload(client, gzfile)}
+convert_filenames = compressor.get_gzip_list
+convert_filenames.each{|gzfile| Uploader.new(gzfile, bucketname).upload(client, gzfile)}
 compressor.delete_old_files
 compressor.delete_old_gzip
+compressor = Compressor.new(dir, 'ltsv')
+compressor.delete_old_gzip
+
 
 t1 = Time.now
 puts  "Process Time: #{t1 - t0} sec"
