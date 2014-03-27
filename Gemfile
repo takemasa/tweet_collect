@@ -9,6 +9,7 @@ gem 'parallel'
 group :report do
     gem 'spreadsheet'
     gem 'ltsv'
+    gem 'systemu'
 end
 
 group :test do

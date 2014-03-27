@@ -8,6 +8,7 @@ require_relative '../lib/uploader.rb'
 require 'bundler/setup'
 Bundler.require(:report)
 require 'date'
+Dotenv.load
 
 t0 = Time.now
 yesterday = (Date.today-1).to_s
@@ -41,6 +42,15 @@ compressor.delete_old_files
 compressor.delete_old_gzip
 compressor = Compressor.new(dir, 'ltsv')
 compressor.delete_old_gzip
+
+convert_filenames.each do |convert_filename|
+    if convert_filename
+        SQL = "COPY twitter.tweetdata FROM 's3://dsb-twitter-csv/#{convert_filename}' CREDENTIALS 'aws_access_key_id=#{ENV['AccessKeyId']};aws_secret_access_key=#{ENV['SecretAccessKey']} delimiter ',' GZIP REMOVEQUOTES MAXERROR 100;"
+
+        cmd = "psql -h val-dwh.ckmoj1esntau.ap-northeast-1.redshift.amazonaws.com -p 5439 -U twuser -d logdb -c \"#{SQL}\""
+        systemu cmd
+    end
+end
 
 
 t1 = Time.now
