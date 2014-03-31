@@ -11,6 +11,7 @@ require 'date'
 Dotenv.load
 
 t0 = Time.now
+# 前日分ファイルをS3からダウンロード
 yesterday = (Date.today-1).to_s
 year = yesterday[0, 4]
 month = yesterday[5, 2]
@@ -24,18 +25,19 @@ keywordtags.each do |tag|
 end
 puts GetTweetFromS3.new('./extract_transform').file_exists?(files)
 
-
+# ダウンロードしたファイルをcsvへ変換
 filenames = []
 Dir.glob("./extract_transform/**/*.ltsv.gz").each do |file|
     filenames << file
 end
-
 Parser.new(filenames)
 
+# csvをgzip圧縮
 dir, extension, bucketname = "./extract_transform", "csv", "dsb-twitter-csv"
 compressor = Compressor.new(dir, extension)
 compressor.compress_file
 
+# csvをS3へアップロードし、ローカルファイルを削除
 convert_filenames = compressor.get_gzip_list
 convert_filenames.each{|gzfile| Uploader.new(gzfile, bucketname).upload(client, gzfile)}
 compressor.delete_old_files
@@ -43,6 +45,7 @@ compressor.delete_old_gzip
 compressor = Compressor.new(dir, 'ltsv')
 compressor.delete_old_gzip
 
+# S3のcsvをRedshiftに格納
 convert_filenames.each do |convert_filename|
     if convert_filename
         sql = "COPY twitter.tweetdata FROM 's3://dsb-twitter-csv/#{convert_filename}' CREDENTIALS 'aws_access_key_id=#{ENV['AccessKeyId']};aws_secret_access_key=#{ENV['SecretAccessKey']} delimiter ',' GZIP REMOVEQUOTES MAXERROR 100;"
@@ -51,7 +54,5 @@ convert_filenames.each do |convert_filename|
         systemu cmd
     end
 end
-
-
 t1 = Time.now
 puts  "Process Time: #{t1 - t0} sec"
