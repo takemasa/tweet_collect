@@ -15,9 +15,14 @@ class Parser
             @newfilename = "#{filename.gsub(".ltsv", "").gsub(".gz", "")}"
             file = filename.include?('.gz') ? Zlib::GzipReader : File
             file.open("./#{filename}").each_line do |line|
-                @results << LTSV.parse(line)
-                @line_count += 1
-                write if @line_count % 10000 == 0
+                begin
+                    line = LTSV.parse(line.scrub!)
+                    @results << line
+                    @line_count += 1
+                    write if @line_count % 10000 == 0
+                rescue => e
+                    raise "#{e}\n#{line}\n"
+                end
             end
             write unless @results.empty?
         end
