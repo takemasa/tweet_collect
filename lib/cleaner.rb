@@ -26,7 +26,11 @@ class Cleaner
     end
 
     def retweeted_status(retweeted)
-        retweeted ? [true, retweeted.user.screen_name] : [false, nil]
+        retweeted ? [true, retweeted.user.screen_name, retweeted.user.id] : [false, nil, nil]
+    end
+
+    def favorite_status(tweet, retweeted)
+        retweeted ? retweeted.favorite_count : tweet.favorite_count
     end
 
     def set_label(labels, tweet_status)
@@ -44,6 +48,7 @@ class Cleaner
         url = prof_urls && home_urls ? false : true
         retweet = retweeted_status(tweet.retweeted_status)
         tweet_place = modify_place(tweet.place)
+        favorite = favorite_status(tweet, tweet.retweeted_status)
 
         labels = [
             'created_at',
@@ -67,7 +72,9 @@ class Cleaner
             'url_status',
             'retweeted_status',
             'retweet_count',
-            'retweeted_user'
+            'retweeted_user',
+            'retweeted_user_id',
+            'favorite_count'
         ]
 
 
@@ -93,7 +100,9 @@ class Cleaner
             url, # ツイート情報にURLが含まれているか
             retweet[0], #リツイートであるか
             tweet.retweet_count, #リツイートされた回数
-            retweet[1]#リツイート元のユーザ名
+            retweet[1],#リツイート元のユーザ名
+            retweet[2],#リツイート元のユーザID
+            favorite
         ]
 
         tweet = set_label(labels, tweet_status)
@@ -104,7 +113,7 @@ class Cleaner
         when 'numeric'
             ary = [tweet['created_at'], tweet['user_id'], tweet['tweet_id'], tweet['retweet_count'], tweet['friends_count'], tweet['followers_count'], tweet['all_tweet_count']]
         when 'all'
-            ary = [tweet['created_at'], tweet['tweet_id'], tweet['tweet_page'], tweet['text'], tweet['text_url'], tweet['user_name'], tweet['user_id'], tweet['user_page'], tweet['profile'], tweet['prof_url'], tweet['home_url'], tweet['client'], tweet['place_status'], tweet['place'], tweet['friends_count'], tweet['followers_count'], tweet['all_tweet_count'], tweet['listed_count'], tweet['url_status'], tweet['retweeted_status'], tweet['retweet_count'], tweet['retweeted_user']]
+            ary = [tweet['created_at'], tweet['tweet_id'], tweet['tweet_page'], tweet['text'], tweet['text_url'], tweet['user_name'], tweet['user_id'], tweet['user_page'], tweet['profile'], tweet['prof_url'], tweet['home_url'], tweet['client'], tweet['place_status'], tweet['place'], tweet['friends_count'], tweet['followers_count'], tweet['all_tweet_count'], tweet['listed_count'], tweet['url_status'], tweet['retweeted_status'], tweet['retweet_count'], tweet['retweeted_user'], tweet['retweeted_user_id'], tweet['favorite_count']]
         end
         ary
     end
