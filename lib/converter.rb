@@ -69,7 +69,7 @@ class Converter
         else
             return
         end
-        if uniq == true && account_id_index = @account_ids.index(account_id)
+        if uniq == "uniq" && account_id_index = @account_ids.index(account_id)
             set_elems(tweet_id, account_id_index, elems)
             puts "#{elems[0][:created_at]} / #{elems[0][:followers_count]} / #{elems[0][:text]}" if (@line_count + 1) % 10000 == 0
         elsif @tweet_ids.index(tweet_id)
