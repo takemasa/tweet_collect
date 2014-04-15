@@ -49,7 +49,7 @@ compressor.delete_old_gzip
 convert_filenames.each do |convert_filename|
     if convert_filename
         convert_filename = convert_filename.gsub('./extract_transform/', '')
-        sql = "COPY twitter.tweetdata FROM 's3://dsb-twitter-csv/#{convert_filename}' CREDENTIALS 'aws_access_key_id=#{ENV['AccessKeyId']};aws_secret_access_key=#{ENV['SecretAccessKey']} delimiter ',' GZIP REMOVEQUOTES;"
+        sql = "COPY twitter.tweetdata FROM 's3://dsb-twitter-csv/#{convert_filename}' CREDENTIALS 'aws_access_key_id=#{ENV['AccessKeyId']};aws_secret_access_key=#{ENV['SecretAccessKey']}' DELIMITER ',' GZIP REMOVEQUOTES;"
 
         cmd = "psql -h val-dwh.ckmoj1esntau.ap-northeast-1.redshift.amazonaws.com -p 5439 -U twuser -d logdb -c \"#{sql}\""
         systemu cmd
