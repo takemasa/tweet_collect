@@ -1,8 +1,9 @@
 class Cleaner
 
-    def initialize(ary_type = nil)
+    def initialize(keyword, ary_type = nil)
         raise 'ary_type needed' unless ary_type
         @ary_type = ary_type
+        @tweet_tag = keyword
     end
 
     def modify_tweet_status_str(tweet_text)
@@ -73,6 +74,7 @@ class Cleaner
             'retweeted_status',
             'retweet_count',
             'retweeted_user',
+            'tweet_tag',
             'retweeted_user_id',
             'retweeted_id',
             'favorite_count'
@@ -102,6 +104,7 @@ class Cleaner
             retweet[0], #リツイートであるか
             tweet.retweet_count, #リツイートされた回数
             retweet[1],#リツイート元のユーザ名
+            @tweet_tag,
             retweet[2],#リツイート元のユーザID
             retweet[3],#リツイート元のツイートID
             favorite
@@ -115,7 +118,7 @@ class Cleaner
         when 'numeric'
             ary = [tweet['created_at'], tweet['user_id'], tweet['tweet_id'], tweet['retweet_count'], tweet['friends_count'], tweet['followers_count'], tweet['all_tweet_count']]
         when 'all'
-            ary = [tweet['created_at'], tweet['tweet_id'], tweet['tweet_page'], tweet['text'], tweet['text_url'], tweet['user_name'], tweet['user_id'], tweet['user_page'], tweet['profile'], tweet['prof_url'], tweet['home_url'], tweet['client'], tweet['place_status'], tweet['place'], tweet['friends_count'], tweet['followers_count'], tweet['all_tweet_count'], tweet['listed_count'], tweet['url_status'], tweet['retweeted_status'], tweet['retweet_count'], tweet['retweeted_user'], tweet['retweeted_user_id'], tweet['retweeted_id'], tweet['favorite_count']]
+            ary = [tweet['created_at'], tweet['tweet_id'], tweet['tweet_page'], tweet['text'], tweet['text_url'], tweet['user_name'], tweet['user_id'], tweet['user_page'], tweet['profile'], tweet['prof_url'], tweet['home_url'], tweet['client'], tweet['place_status'], tweet['place'], tweet['friends_count'], tweet['followers_count'], tweet['all_tweet_count'], tweet['listed_count'], tweet['url_status'], tweet['retweeted_status'], tweet['retweet_count'], tweet['retweeted_user'], tweet['tweet_tag'],tweet['retweeted_user_id'], tweet['retweeted_id'], tweet['favorite_count']]
         end
         ary
     end

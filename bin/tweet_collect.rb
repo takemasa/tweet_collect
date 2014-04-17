@@ -12,7 +12,7 @@ writer = Writer.new(keyword)
 writer.make_dir
 client = Authenticater.new(account_id).get_twitter_client
 collector = Collector.new(keyword, result_type, lang)
-cleaner = Cleaner.new(ary_type)
+cleaner = Cleaner.new(keyword, ary_type)
 error_message = nil
 ary_all_tweets = []
 ary_id = []
