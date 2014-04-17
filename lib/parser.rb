@@ -6,7 +6,6 @@ class Parser
         @results = []
         @line_count = 0
         filenames.each do |filename|
-            @hitword = set_tag(filename)
             if FileTest.exist?("./#{filename}") == true
                 puts "read #{filename}"
             else
@@ -68,16 +67,7 @@ class Parser
             values.each do |value|
                 ary << "#{value[l]},"
             end
-            ary << @hitword
         end
         ary.join
-    end
-
-    def set_tag(filename) # 何のキーワードにマッチしたツイートかを表示
-        tag = /.{4}?-.{2}?-.{2}?-.{3}?_(.+?).ltsv/.match(filename)
-        keyword = nil
-        keyword_exchange = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/twkeyword.yaml'))
-        keyword_exchange.each{|w| keyword = w[0] if w[1] == tag[1]}
-        return "#{keyword}\n"
     end
 end
