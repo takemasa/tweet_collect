@@ -64,9 +64,11 @@ class Parser
         values.empty? ? return : lines = values[0].length
         ary = []
         lines.times do |l|
-            values.each do |value|
-                ary << "#{value[l]},"
+            values.each_with_index do |value, i|
+                ary << "," if i != 0
+                ary << "#{value[l]}"
             end
+            ary << "\n"
         end
         ary.join
     end
