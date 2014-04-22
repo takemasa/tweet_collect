@@ -11,17 +11,16 @@ require 'date'
 Dotenv.load
 
 t0 = Time.now
-(Date.parse("2014/03/09")..Date.parse("2014/04/21")).each {|restday|
+(Date.parse("2014/03/26")..Date.parse("2014/04/19")).each {|restday|
     # 前日分ファイルをS3からダウンロード
-    restday = (Date.today-1).to_s
-    year = restday[0, 4]
-    month = restday[5, 2]
+    year = restday.to_s[0, 4]
+    month = restday.to_s[5, 2]
     client = Authenticater.new.get_aws_client
     keywordtags = YAML.load_file(File.expand_path(File.dirname(__FILE__) + "/../config/twkeyword.yaml"))
     files = []
     keywordtags.each do |tag|
-        puts "get #{tag[1]}/#{year}/#{month}/#{restday}*.ltsv.gz"
-        file = "#{tag[1]}/#{year}/#{month}/#{restday}"
+        puts "get #{tag[1]}/#{year}/#{month}/#{restday.to_s}*.ltsv.gz"
+        file = "#{tag[1]}/#{year}/#{month}/#{restday.to_s}"
         files << GetTweetFromS3.new('./extract_transform').download(client, file) unless GetTweetFromS3.new('./extract_transform').avoid_duplication(file)
     end
     puts GetTweetFromS3.new('./extract_transform').file_exists?(files)

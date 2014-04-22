@@ -70,9 +70,9 @@ class Parser
                 ary << "#{value[l]}"
                 ary << "," if (num != 24)
                 num += 1
-                ary << "\"#{@hitword.chomp}\"," if num == 22 #&& (num % 46 == 0 || (num - 50) % 46 == 0)
-                ary << "\n" if num == 25
+                ary << "\"#{@hitword.chomp}\"," if num == 22
             end
+            num == 25 ? ary << "\n" : ary << ",,\n"
         end
         ary.join
     end
